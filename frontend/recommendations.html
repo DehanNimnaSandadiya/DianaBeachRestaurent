@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Recommendations — Diana Beach Restaurant</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<nav class="navbar scrolled">
+  <a href="index.html" class="nav-logo"><span class="logo-name">Diana Beach</span><span class="logo-sub">Restaurant · Matara</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="menu.html">Menu</a></li>
+    <li><a href="recommendations.html" class="active">Recommendations</a></li><li><a href="reviews.html">Reviews</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="recommendations.html" class="nav-cta">Get Recommendations</a></li>
+  </ul>
+  <button class="nav-toggle"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="nationality-hero">
+  <span class="hero-tag">🌍 Personalised For You</span>
+  <h1>What Would <em>You</em> Love?</h1>
+  <p>Select your nationality and we'll show you the dishes most popular among guests from your country — powered by a weighted Bayesian recommendation engine.</p>
+</div>
+
+<section class="section">
+  <div class="container" style="max-width:740px;">
+    <div class="nationality-selector">
+      <h2>Select Your Nationality</h2>
+      <p>Choose from the popular options below, or type your country name.</p>
+      <div class="flag-grid" id="flag-grid"></div>
+      <div class="or-divider">OR TYPE YOUR COUNTRY</div>
+      <div class="nationality-search">
+        <input type="text" id="nat-input" class="form-control" placeholder="e.g. Canadian, Korean, Swedish…" autocomplete="off" style="border-radius:50px;"/>
+        <button class="btn btn-ocean" id="search-btn">Search →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="results-section" style="display:none;">
+  <div class="container">
+    <div class="rec-result-header" id="rec-header"></div>
+    <!-- Algorithm info box -->
+    <div id="algo-info" style="background:rgba(26,107,124,.04);border:1px solid rgba(26,107,124,.1);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:2rem;font-size:.85rem;color:var(--text-mid);display:none;">
+      <strong>🔬 Algorithm:</strong> <span id="algo-text"></span>
+    </div>
+    <div class="dishes-grid" id="rec-dishes"></div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="reviews.html" class="btn btn-ocean">Leave Your Review →</a>
+      <button class="btn" style="color:var(--text-dark);border:1.5px solid var(--sand-dark);margin-left:1rem;" onclick="resetSearch()">Search Again</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="how-it-works">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">The Algorithm</span>
+      <h2 class="section-title">How Our Recommendation Engine Works</h2>
+      <p class="section-sub">Powered by a weighted Bayesian scoring model — the same approach used by IMDb's Top 250 ranking.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">📝</div><h3>1. Guests Leave Reviews</h3><p>After dining, guests rate dishes 1–5 stars and share their nationality.</p></div>
+      <div class="feature-card"><div class="feature-icon">⚖️</div><h3>2. Bayesian Averaging</h3><p>Raw averages are adjusted toward the global mean when review counts are low, preventing new dishes with one 5-star review from dominating.</p></div>
+      <div class="feature-card"><div class="feature-icon">📅</div><h3>3. Recency Weighting</h3><p>Recent reviews carry more weight using exponential decay — a dish that was great last week matters more than one from two years ago.</p></div>
+      <div class="feature-card"><div class="feature-icon">✨</div><h3>4. Personalised Results</h3><p>The top-scoring dishes for your nationality are presented in ranked order, with full transparency on the scoring breakdown.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand"><div class="logo-name">Diana Beach Restaurant</div><div class="logo-sub">Matara · Sri Lanka</div><p>Personalised coastal dining on Sri Lanka's southern coast.</p></div>
+    <div class="footer-col"><h4>Navigation</h4><a href="index.html">Home</a><a href="menu.html">Menu</a><a href="recommendations.html">Recommendations</a><a href="reviews.html">Reviews</a></div>
+    <div class="footer-col"><h4>Contact</h4><p>📍 Beach Road, Matara</p><p>📞 +94 41 222 XXXX</p></div>
+    <div class="footer-col"><h4>Hours</h4><p>Open Daily</p><p>7:00 AM – 10:00 PM</p></div>
+  </div>
+  <div class="footer-bottom">© 2025 Diana Beach Restaurant.</div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+const NATIONS=[
+  {name:'British',flag:'🇬🇧'},{name:'Indian',flag:'🇮🇳'},{name:'German',flag:'🇩🇪'},
+  {name:'Australian',flag:'🇦🇺'},{name:'Chinese',flag:'🇨🇳'},{name:'Japanese',flag:'🇯🇵'},
+  {name:'French',flag:'🇫🇷'},{name:'Russian',flag:'🇷🇺'},{name:'American',flag:'🇺🇸'},
+  {name:'Canadian',flag:'🇨🇦'},{name:'Sri Lankan',flag:'🇱🇰'},{name:'Korean',flag:'🇰🇷'},
+];
+const fg=document.getElementById('flag-grid');
+NATIONS.forEach(n=>{
+  const btn=document.createElement('button');btn.className='flag-btn';
+  btn.innerHTML=`<span class="flag">${n.flag}</span>${n.name}`;
+  btn.addEventListener('click',()=>fetchRecs(n.name,n.flag));
+  fg.appendChild(btn);
+});
+document.getElementById('search-btn').addEventListener('click',()=>{
+  const v=document.getElementById('nat-input').value.trim();
+  if(!v){showToast('Please enter your nationality','error');return;}
+  const m=NATIONS.find(n=>n.name.toLowerCase()===v.toLowerCase());
+  fetchRecs(v,m?m.flag:'🌍');
+});
+document.getElementById('nat-input').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('search-btn').click();});
+
+async function fetchRecs(nationality,flag='🌍'){
+  document.querySelectorAll('.flag-btn').forEach(b=>b.classList.toggle('selected',b.textContent.trim().toLowerCase()===nationality.toLowerCase()));
+  const sec=document.getElementById('results-section');
+  const header=document.getElementById('rec-header');
+  const grid=document.getElementById('rec-dishes');
+  sec.style.display='block';
+  header.innerHTML=`<div class="rec-nationality-flag">${flag}</div><div><h2>Loading recommendations…</h2><p>Calculating personalised scores</p></div>`;
+  grid.innerHTML='<div class="loading-state"><div class="spinner"></div></div>';
+  setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),100);
+  try{
+    const data=await apiGet(`/recommendations?nationality=${encodeURIComponent(nationality)}`);
+    const recs=data.recommendations;
+    const srcMsg=data.has_nationality_data
+      ?`Found <strong>${recs.length}</strong> dishes rated by ${nationality} visitors`
+      :`No ${nationality}-specific data yet — showing our top-rated dishes globally`;
+    header.innerHTML=`<div class="rec-nationality-flag">${flag}</div><div><h2>Best Dishes for ${nationality} Visitors</h2><p>${srcMsg}</p></div><div class="score-badge">${recs.length} results</div>`;
+    // Show algorithm info
+    if(data.algorithm_info){
+      const ai=data.algorithm_info;
+      const algoBox=document.getElementById('algo-info');
+      document.getElementById('algo-text').innerHTML=ai.mode==='weighted_bayesian'
+        ?`Weighted Bayesian + Recency Decay | Reviews analysed: <strong>${ai.total_reviews_used}</strong> | Global mean: <strong>${ai.global_mean}</strong> | Dishes evaluated: <strong>${ai.dishes_evaluated}</strong>`
+        :`Global fallback mode — ${ai.reason}`;
+      algoBox.style.display='block';
+    }
+    if(recs.length===0){
+      grid.innerHTML=`<div class="empty-state"><div class="empty-icon">🍽️</div><h3>No recommendations yet</h3><p>Be the first ${nationality} visitor to leave a review!</p><a href="reviews.html" class="btn btn-ocean" style="margin-top:1rem;">Leave a Review</a></div>`;return;
+    }
+    grid.innerHTML=recs.map(item=>renderDishCard(item.dish,true,item.score)).join('');
+    if(data.has_nationality_data){
+      document.querySelectorAll('#rec-dishes .dish-card').forEach((card,i)=>{
+        const rec=recs[i];if(!rec)return;
+        const tag=document.createElement('div');
+        tag.style.cssText='padding:.5rem 1.25rem;border-top:1px solid var(--sand-dark);font-size:.8rem;color:var(--text-light);';
+        tag.innerHTML=`${flag} Rated by <strong>${rec.review_count}</strong> ${nationality} guest${rec.review_count!==1?'s':''}`;
+        card.appendChild(tag);
+      });
+    }
+  }catch(e){
+    header.innerHTML=`<div class="rec-nationality-flag">⚠️</div><div><h2>Error</h2><p>${e.message}</p></div>`;
+    grid.innerHTML='';
+  }
+}
+function resetSearch(){
+  document.getElementById('results-section').style.display='none';
+  document.getElementById('nat-input').value='';
+  document.getElementById('algo-info').style.display='none';
+  document.querySelectorAll('.flag-btn').forEach(b=>b.classList.remove('selected'));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body></html>

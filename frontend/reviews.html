@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Reviews — Diana Beach Restaurant</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<nav class="navbar scrolled">
+  <a href="index.html" class="nav-logo"><span class="logo-name">Diana Beach</span><span class="logo-sub">Restaurant · Matara</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="menu.html">Menu</a></li>
+    <li><a href="recommendations.html">Recommendations</a></li><li><a href="reviews.html" class="active">Reviews</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="recommendations.html" class="nav-cta">Get Recommendations</a></li>
+  </ul>
+  <button class="nav-toggle"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero"><h1>Guest <em>Reviews</em></h1><p>Share your dining experience and help fellow travellers discover their perfect dish.</p></div>
+
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:3rem;align-items:start;">
+
+      <!-- Form -->
+      <div style="background:white;border-radius:var(--radius-lg);padding:2.5rem;box-shadow:var(--shadow-md);">
+        <h2 style="font-size:1.8rem;margin-bottom:.5rem;">Leave a Review</h2>
+        <p style="color:var(--text-mid);font-size:.9rem;margin-bottom:2rem;">Your review directly improves recommendations for future visitors from your country.</p>
+        <div class="form-group"><label>Your Name *</label><input class="form-control" type="text" id="r-name" placeholder="John Smith"/></div>
+        <div class="form-group"><label>Your Nationality *</label><input class="form-control" type="text" id="r-nat" placeholder="British, Indian, German…"/></div>
+        <div class="form-group"><label>Select a Dish *</label>
+          <select class="form-control" id="r-dish"><option value="">-- Loading dishes... --</option></select>
+        </div>
+        <div class="form-group">
+          <label>Your Rating *</label>
+          <div class="star-rating" id="stars"><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span><span class="star">☆</span></div>
+          <input type="hidden" id="r-rating" value="0"/>
+        </div>
+        <div class="form-group"><label>Comment <span style="font-weight:400;color:var(--text-light)">(optional)</span></label>
+          <textarea class="form-control" id="r-comment" placeholder="Tell us about your experience…"></textarea>
+        </div>
+        <button class="btn btn-primary" id="submit-btn" style="width:100%;justify-content:center;">Submit Review ✓</button>
+      </div>
+
+      <!-- Reviews List -->
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;">
+          <h2 style="font-size:1.8rem;">Recent Reviews</h2>
+          <select class="form-control" id="filter-nat" style="width:auto;padding:.5rem 1rem;">
+            <option value="">All nationalities</option>
+          </select>
+        </div>
+        <div id="reviews-list"><div class="loading-state"><div class="spinner"></div></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand"><div class="logo-name">Diana Beach Restaurant</div><div class="logo-sub">Matara · Sri Lanka</div><p>Personalised coastal dining.</p></div>
+    <div class="footer-col"><h4>Navigation</h4><a href="index.html">Home</a><a href="menu.html">Menu</a><a href="recommendations.html">Recommendations</a></div>
+    <div class="footer-col"><h4>Contact</h4><p>📍 Beach Road, Matara</p><p>📞 +94 41 222 XXXX</p></div>
+    <div class="footer-col"><h4>Hours</h4><p>Open Daily 7am–10pm</p></div>
+  </div>
+  <div class="footer-bottom">© 2025 Diana Beach Restaurant.</div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+// Star rating
+let curRating=0;
+const stars=document.querySelectorAll('.star');
+stars.forEach((s,i)=>{
+  s.addEventListener('mouseover',()=>paintStars(i+1));
+  s.addEventListener('mouseleave',()=>paintStars(curRating));
+  s.addEventListener('click',()=>{curRating=i+1;document.getElementById('r-rating').value=curRating;paintStars(curRating);});
+});
+function paintStars(n){stars.forEach((s,i)=>{s.textContent=i<n?'★':'☆';s.classList.toggle('active',i<n);});}
+
+// Load dishes
+async function loadDishes(){
+  try{
+    const dishes=await apiGet('/dishes');
+    const sel=document.getElementById('r-dish');
+    sel.innerHTML='<option value="">-- Select a dish --</option>'+dishes.map(d=>`<option value="${d.id}">${d.name} (${d.category})</option>`).join('');
+    const urlDish=new URLSearchParams(location.search).get('dish');
+    if(urlDish)sel.value=urlDish;
+  }catch(e){document.getElementById('r-dish').innerHTML='<option>Error loading dishes</option>';}
+}
+
+// Load nationality filter
+async function loadNatFilter(){
+  try{
+    const nats=await apiGet('/nationalities');
+    const sel=document.getElementById('filter-nat');
+    nats.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o);});
+    sel.addEventListener('change',()=>loadReviews(sel.value));
+  }catch{}
+}
+
+// Load reviews
+async function loadReviews(nat=''){
+  const list=document.getElementById('reviews-list');
+  list.innerHTML='<div class="loading-state"><div class="spinner"></div></div>';
+  try{
+    const endpoint=nat?`/reviews?nationality=${encodeURIComponent(nat)}`:'/reviews';
+    const reviews=await apiGet(endpoint);
+    if(!reviews.length){list.innerHTML='<div class="empty-state"><div class="empty-icon">💬</div><h3>No reviews yet</h3><p>Be the first!</p></div>';return;}
+    list.innerHTML=reviews.map(r=>{
+      const init=r.reviewer_name.charAt(0).toUpperCase();
+      const stars='★'.repeat(r.rating)+'☆'.repeat(5-r.rating);
+      return `<div class="review-card">
+        <div class="review-header">
+          <div class="reviewer-avatar">${init}</div>
+          <div class="reviewer-info"><h4>${r.reviewer_name}</h4><span>🌍 ${r.nationality} &nbsp;·&nbsp; 🍽️ ${r.dish_name} &nbsp;·&nbsp; 📅 ${r.created_at}</span></div>
+          <div class="review-stars" style="margin-left:auto;">${stars}</div>
+        </div>
+        ${r.comment?`<p class="review-text">"${r.comment}"</p>`:''}
+      </div>`;
+    }).join('');
+  }catch(e){list.innerHTML=`<div class="empty-state"><p>⚠️ ${e.message}</p></div>`;}
+}
+
+// Submit review
+document.getElementById('submit-btn').addEventListener('click',async()=>{
+  const name=document.getElementById('r-name').value.trim();
+  const nat=document.getElementById('r-nat').value.trim();
+  const dish_id=document.getElementById('r-dish').value;
+  const rating=parseInt(document.getElementById('r-rating').value);
+  const comment=document.getElementById('r-comment').value.trim();
+  if(!name){showToast('Please enter your name','error');return;}
+  if(!nat){showToast('Please enter your nationality','error');return;}
+  if(!dish_id){showToast('Please select a dish','error');return;}
+  if(!rating||rating<1){showToast('Please select a rating','error');return;}
+  const btn=document.getElementById('submit-btn');btn.textContent='Submitting…';btn.disabled=true;
+  try{
+    await apiPost('/reviews',{reviewer_name:name,nationality:nat,dish_id,rating,comment});
+    showToast('Review submitted! Thank you 🙏','success');
+    document.getElementById('r-name').value='';document.getElementById('r-nat').value='';
+    document.getElementById('r-dish').value='';document.getElementById('r-comment').value='';
+    curRating=0;paintStars(0);document.getElementById('r-rating').value=0;
+    loadReviews();loadNatFilter();
+  }catch(e){showToast(e.message||'Failed','error');}
+  finally{btn.textContent='Submit Review ✓';btn.disabled=false;}
+});
+
+loadDishes();loadReviews();loadNatFilter();
+</script>
+</body></html>

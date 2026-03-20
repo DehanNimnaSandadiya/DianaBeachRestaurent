@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Menu — Diana Beach Restaurant</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<nav class="navbar scrolled">
+  <a href="index.html" class="nav-logo"><span class="logo-name">Diana Beach</span><span class="logo-sub">Restaurant · Matara</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="menu.html" class="active">Menu</a></li>
+    <li><a href="recommendations.html">Recommendations</a></li><li><a href="reviews.html">Reviews</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="recommendations.html" class="nav-cta">Get Recommendations</a></li>
+  </ul>
+  <button class="nav-toggle"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero"><h1>Our <em>Menu</em></h1><p>Fresh ingredients, authentic flavours, and dishes crafted with love — right on the southern coast of Sri Lanka.</p></div>
+
+<section class="section">
+  <div class="container">
+    <div class="filter-tabs" id="cat-tabs">
+      <button class="filter-tab active" data-cat="all">🍽️ All Dishes</button>
+      <button class="filter-tab" data-cat="Starters">🍤 Starters</button>
+      <button class="filter-tab" data-cat="Soups">🍲 Soups</button>
+      <button class="filter-tab" data-cat="Salads">🥗 Salads</button>
+      <button class="filter-tab" data-cat="Chicken">🍗 Chicken</button>
+      <button class="filter-tab" data-cat="Seafood">🦐 Seafood</button>
+      <button class="filter-tab" data-cat="Pasta">🍝 Pasta</button>
+      <button class="filter-tab" data-cat="Burgers & Sandwiches">🍔 Burgers & Sandwiches</button>
+      <button class="filter-tab" data-cat="Rice & Noodles">🍜 Rice & Noodles</button>
+      <button class="filter-tab" data-cat="Breakfast">🍳 Breakfast</button>
+      <button class="filter-tab" data-cat="Desserts">🍮 Desserts</button>
+      <button class="filter-tab" data-cat="Drinks">🥤 Drinks</button>
+    </div>
+    <div style="text-align:center;margin-bottom:2rem;">
+      <label style="display:inline-flex;align-items:center;gap:.6rem;cursor:pointer;font-size:.9rem;color:var(--text-mid);">
+        <input type="checkbox" id="veg-only" style="accent-color:var(--ocean);width:18px;height:18px;"/> Show vegetarian only 🌿
+      </label>
+    </div>
+    <div class="dishes-grid" id="menu-grid"><div class="loading-state"><div class="spinner"></div></div></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand"><div class="logo-name">Diana Beach Restaurant</div><div class="logo-sub">Matara · Sri Lanka</div><p>Beachside dining on Sri Lanka's southern coast.</p></div>
+    <div class="footer-col"><h4>Navigation</h4><a href="index.html">Home</a><a href="menu.html">Menu</a><a href="recommendations.html">Recommendations</a><a href="reviews.html">Reviews</a></div>
+    <div class="footer-col"><h4>Contact</h4><p>📍 Beach Road, Matara</p><p>📞 +94 41 222 XXXX</p></div>
+    <div class="footer-col"><h4>Hours</h4><p>Open Daily</p><p>7:00 AM – 10:00 PM</p></div>
+  </div>
+  <div class="footer-bottom">© 2025 Diana Beach Restaurant.</div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+let allDishes=[]; let activeCat='all';
+async function loadMenu(){
+  try{allDishes=await apiGet('/dishes');renderMenu();}
+  catch(e){document.getElementById('menu-grid').innerHTML=`<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Backend not running</h3><p>Run: <code>python app.py</code></p></div>`;}
+}
+function renderMenu(){
+  const vegOnly=document.getElementById('veg-only').checked;
+  let f=allDishes;
+  if(activeCat!=='all')f=f.filter(d=>d.category===activeCat);
+  if(vegOnly)f=f.filter(d=>d.is_veg);
+  const g=document.getElementById('menu-grid');
+  g.innerHTML=f.length?f.map(d=>renderDishCard(d)).join(''):`<div class="empty-state"><div class="empty-icon">🍽️</div><h3>No dishes</h3><p>Try a different filter.</p></div>`;
+}
+document.getElementById('cat-tabs').addEventListener('click',e=>{
+  const btn=e.target.closest('.filter-tab');if(!btn)return;
+  document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');activeCat=btn.dataset.cat;renderMenu();
+});
+document.getElementById('veg-only').addEventListener('change',renderMenu);
+const urlCat=new URLSearchParams(location.search).get('cat');
+if(urlCat){activeCat=urlCat;document.querySelectorAll('.filter-tab').forEach(t=>{t.classList.toggle('active',t.dataset.cat===urlCat);});}
+loadMenu();
+</script>
+</body></html>

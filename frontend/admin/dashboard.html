@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Admin Dashboard — Diana Beach Restaurant</title>
+<link rel="stylesheet" href="../css/style.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+<div class="admin-layout">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-header">
+      <div class="logo-name">Diana Beach</div>
+      <div class="logo-sub">Admin Panel</div>
+    </div>
+    <nav class="admin-nav">
+      <div class="admin-nav-item active" data-panel="overview"><span class="icon">📊</span> Overview</div>
+      <div class="admin-nav-item" data-panel="dishes"><span class="icon">🍽️</span> Manage Dishes</div>
+      <div class="admin-nav-item" data-panel="reviews"><span class="icon">💬</span> Reviews</div>
+      <div class="admin-nav-item" data-panel="analytics"><span class="icon">📈</span> Analytics</div>
+    </nav>
+    <div style="position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;">
+      <a href="../index.html" style="color:rgba(255,255,255,.6);font-size:.82rem;display:block;margin-bottom:.5rem;">← Back to site</a>
+      <a href="#" id="logout-link" style="color:var(--coral-light);font-size:.82rem;">Sign Out</a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <h1 id="panel-title">Overview</h1>
+      <div id="admin-user" style="font-size:.88rem;color:var(--text-mid);"></div>
+    </div>
+
+    <!-- Overview Panel -->
+    <div class="admin-panel active" id="panel-overview">
+      <div class="kpi-grid" id="kpi-grid">
+        <div class="kpi-card"><h3 id="kpi-dishes">—</h3><p>Total Dishes</p></div>
+        <div class="kpi-card"><h3 id="kpi-reviews">—</h3><p>Total Reviews</p></div>
+        <div class="kpi-card"><h3 id="kpi-users">—</h3><p>Registered Users</p></div>
+        <div class="kpi-card"><h3 id="kpi-nations">—</h3><p>Nationalities Served</p></div>
+      </div>
+      <div class="chart-grid">
+        <div class="chart-card"><h3>Reviews by Nationality</h3><canvas id="chart-nat" height="260"></canvas></div>
+        <div class="chart-card"><h3>Dishes by Category</h3><canvas id="chart-cat" height="260"></canvas></div>
+      </div>
+      <div class="chart-card" style="margin-bottom:1.5rem;"><h3>Reviews Over Last 30 Days</h3><canvas id="chart-timeline" height="100"></canvas></div>
+      <div style="background:white;border-radius:var(--radius);padding:1.5rem;box-shadow:var(--shadow-sm);">
+        <h3 style="font-size:1.1rem;margin-bottom:1rem;">Top Rated Dishes</h3>
+        <div id="top-dishes-list"></div>
+      </div>
+    </div>
+
+    <!-- Dishes Panel -->
+    <div class="admin-panel" id="panel-dishes">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+        <h2 style="font-size:1.4rem;">All Dishes</h2>
+        <button class="btn btn-primary btn-sm" onclick="openDishModal()">+ Add New Dish</button>
+      </div>
+      <div style="background:white;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);">
+        <table class="admin-table" id="dishes-table">
+          <thead><tr><th>Name</th><th>Category</th><th>Price (LKR)</th><th>Spice</th><th>Veg</th><th>Top Seller</th><th>Rating</th><th>Reviews</th><th>Actions</th></tr></thead>
+          <tbody id="dishes-tbody"><tr><td colspan="9" style="text-align:center;padding:2rem;">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Reviews Panel -->
+    <div class="admin-panel" id="panel-reviews">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+        <h2 style="font-size:1.4rem;">All Reviews</h2>
+        <select class="form-control" id="review-nat-filter" style="width:auto;padding:.5rem 1rem;">
+          <option value="">All nationalities</option>
+        </select>
+      </div>
+      <div style="background:white;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);">
+        <table class="admin-table" id="reviews-table">
+          <thead><tr><th>Guest</th><th>Nationality</th><th>Dish</th><th>Rating</th><th>Comment</th><th>Date</th><th>Action</th></tr></thead>
+          <tbody id="reviews-tbody"><tr><td colspan="7" style="text-align:center;padding:2rem;">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Analytics Panel -->
+    <div class="admin-panel" id="panel-analytics">
+      <h2 style="font-size:1.4rem;margin-bottom:1.5rem;">Recommendation Engine Analytics</h2>
+      <div style="background:white;border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow-sm);margin-bottom:1.5rem;">
+        <h3 style="font-size:1.1rem;margin-bottom:1rem;">Test Nationality Recommendations</h3>
+        <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+          <input class="form-control" type="text" id="test-nat" placeholder="Enter nationality…" style="max-width:260px;"/>
+          <button class="btn btn-ocean btn-sm" onclick="testRecommendation()">Run →</button>
+        </div>
+        <div id="test-result" style="margin-top:1.5rem;"></div>
+      </div>
+      <div style="background:white;border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow-sm);">
+        <h3 style="font-size:1.1rem;margin-bottom:1rem;">Nationality Coverage</h3>
+        <div id="nat-coverage"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Dish Modal -->
+<div class="modal-overlay" id="dish-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-title">Add New Dish</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="form-group"><label>Name *</label><input class="form-control" type="text" id="m-name"/></div>
+    <div class="form-group"><label>Description *</label><textarea class="form-control" id="m-desc"></textarea></div>
+    <div class="form-group"><label>Category *</label>
+      <select class="form-control" id="m-cat">
+        <option>Starters</option><option>Soups</option><option>Salads</option><option>Chicken</option>
+        <option>Seafood</option><option>Pasta</option><option>Burgers & Sandwiches</option><option>Rice & Noodles</option>
+        <option>Breakfast</option><option>Desserts</option><option>Drinks</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Price (LKR) *</label><input class="form-control" type="number" id="m-price"/></div>
+    <div class="form-group"><label>Spice Level</label>
+      <select class="form-control" id="m-spice">
+        <option>None</option><option>Mild</option><option selected>Medium</option><option>Hot</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label><input type="checkbox" id="m-veg" style="margin-right:.5rem;"/> Vegetarian dish</label>
+    </div>
+    <div class="form-group">
+      <label><input type="checkbox" id="m-top" style="margin-right:.5rem;"/> Mark as top seller</label>
+    </div>
+    <input type="hidden" id="m-editing-id"/>
+    <button class="btn btn-primary" id="modal-save-btn" style="width:100%;justify-content:center;" onclick="saveDish()">Save Dish</button>
+  </div>
+</div>
+
+<script src="../js/main.js"></script>
+<script>
+// Auth guard
+if(!Auth.isLoggedIn()||!Auth.isAdmin()){location.href='../login.html';}
+const user=Auth.getUser();
+if(user)document.getElementById('admin-user').textContent='👤 '+user.name;
+document.getElementById('logout-link').addEventListener('click',e=>{e.preventDefault();Auth.clear();location.href='../login.html';});
+
+// Panel navigation
+let activePanel='overview';
+document.querySelectorAll('.admin-nav-item').forEach(item=>{
+  item.addEventListener('click',()=>{
+    document.querySelectorAll('.admin-nav-item').forEach(i=>i.classList.remove('active'));
+    document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
+    item.classList.add('active');
+    activePanel=item.dataset.panel;
+    document.getElementById('panel-'+activePanel).classList.add('active');
+    document.getElementById('panel-title').textContent=item.textContent.trim();
+    if(activePanel==='dishes')loadDishesTable();
+    if(activePanel==='reviews')loadReviewsTable();
+    if(activePanel==='analytics')loadAnalytics();
+  });
+});
+
+// ─── Overview ─────────────────────────────────────────────
+let chartsInit=false;
+async function loadOverview(){
+  try{
+    const s=await apiGet('/admin/stats');
+    document.getElementById('kpi-dishes').textContent=s.summary.total_dishes;
+    document.getElementById('kpi-reviews').textContent=s.summary.total_reviews;
+    document.getElementById('kpi-users').textContent=s.summary.total_users;
+    document.getElementById('kpi-nations').textContent=s.summary.nationalities_served;
+
+    if(!chartsInit){
+      chartsInit=true;
+      // Nationality pie
+      const natData=s.reviews_by_nationality;
+      new Chart(document.getElementById('chart-nat'),{type:'doughnut',data:{labels:natData.map(x=>x.nationality),datasets:[{data:natData.map(x=>x.count),backgroundColor:['#1a6b7c','#2a8fa4','#d4704a','#c9a84c','#4a6368','#0d4a57','#e8967a','#e2c97e','#8aa4aa','#1c2d2f']}]},options:{plugins:{legend:{position:'right'}}}});
+      // Category donut
+      const catData=s.dishes_by_category;
+      new Chart(document.getElementById('chart-cat'),{type:'doughnut',data:{labels:catData.map(x=>x.category),datasets:[{data:catData.map(x=>x.count),backgroundColor:['#1a6b7c','#d4704a','#c9a84c','#2a8fa4','#0d4a57']}]},options:{plugins:{legend:{position:'right'}}}});
+      // Timeline line
+      const tl=s.reviews_timeline;
+      new Chart(document.getElementById('chart-timeline'),{type:'line',data:{labels:tl.map(x=>x.date.slice(5)),datasets:[{label:'Reviews',data:tl.map(x=>x.count),borderColor:'#1a6b7c',backgroundColor:'rgba(26,107,124,.08)',tension:.3,fill:true,pointRadius:3}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:1}}}}});
+    }
+
+    // Top dishes
+    const topList=document.getElementById('top-dishes-list');
+    topList.innerHTML=s.top_dishes.map((d,i)=>`
+      <div style="display:flex;align-items:center;padding:.75rem 0;border-bottom:1px solid var(--sand-dark);gap:1rem;">
+        <span style="font-size:1.2rem;font-weight:700;color:var(--ocean);width:28px;">${i+1}</span>
+        <div style="flex:1"><strong>${d.name}</strong><br><span style="font-size:.8rem;color:var(--text-mid);">${d.category}</span></div>
+        <div style="text-align:right;"><span style="color:var(--gold);">${'★'.repeat(Math.round(d.avg_rating))}</span><br><span style="font-size:.8rem;color:var(--text-light);">${d.avg_rating}/5 (${d.review_count} reviews)</span></div>
+      </div>`).join('');
+  }catch(e){showToast('Failed to load stats: '+e.message,'error');}
+}
+
+// ─── Dishes Table ──────────────────────────────────────────
+async function loadDishesTable(){
+  const tbody=document.getElementById('dishes-tbody');
+  tbody.innerHTML='<tr><td colspan="9" style="text-align:center;padding:2rem;">Loading…</td></tr>';
+  try{
+    const dishes=await apiGet('/dishes');
+    tbody.innerHTML=dishes.map(d=>`<tr>
+      <td><strong>${d.name}</strong></td>
+      <td>${d.category}</td>
+      <td>${Number(d.price).toLocaleString()}</td>
+      <td>${d.spice_level}</td>
+      <td><span class="badge ${d.is_veg?'badge-veg':'badge-nonveg'}">${d.is_veg?'Veg':'Non-Veg'}</span></td>
+      <td>${d.is_top_seller?'<span class="badge badge-gold">Top seller</span>':'—'}</td>
+      <td>${'★'.repeat(Math.round(d.avg_rating))} ${d.avg_rating}</td>
+      <td>${d.review_count}</td>
+      <td><div class="table-actions">
+        <button class="btn btn-ocean btn-sm" onclick="editDish('${d.id}','${escHtml(d.name)}','${escHtml(d.description)}','${d.category}',${d.price},'${d.spice_level}',${d.is_veg},${d.is_top_seller})">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteDish('${d.id}','${escHtml(d.name)}')">Delete</button>
+      </div></td>
+    </tr>`).join('');
+  }catch(e){tbody.innerHTML=`<tr><td colspan="9" style="text-align:center;">Error: ${e.message}</td></tr>`;}
+}
+
+// ─── Reviews Table ─────────────────────────────────────────
+async function loadReviewsTable(nat=''){
+  const tbody=document.getElementById('reviews-tbody');
+  tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:2rem;">Loading…</td></tr>';
+  try{
+    const endpoint=nat?`/reviews?nationality=${encodeURIComponent(nat)}`:'/reviews';
+    const reviews=await apiGet(endpoint);
+    if(!reviews.length){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:2rem;">No reviews found.</td></tr>';return;}
+    tbody.innerHTML=reviews.map(r=>`<tr>
+      <td>${r.reviewer_name}</td>
+      <td>${r.nationality}</td>
+      <td>${r.dish_name}</td>
+      <td>${'★'.repeat(r.rating)+'☆'.repeat(5-r.rating)}</td>
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${r.comment||'—'}</td>
+      <td>${r.created_at}</td>
+      <td><button class="btn btn-danger btn-sm" onclick="deleteReview('${r.id}')">Delete</button></td>
+    </tr>`).join('');
+  }catch(e){tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;">Error: ${e.message}</td></tr>`;}
+}
+
+document.getElementById('review-nat-filter').addEventListener('change',e=>loadReviewsTable(e.target.value));
+
+// Load nationality options for filter
+async function loadNatOptions(){
+  try{
+    const nats=await apiGet('/nationalities');
+    const sel=document.getElementById('review-nat-filter');
+    nats.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o);});
+  }catch{}
+}
+
+// ─── Analytics Panel ───────────────────────────────────────
+async function loadAnalytics(){
+  try{
+    const nats=await apiGet('/nationalities');
+    const cov=document.getElementById('nat-coverage');
+    cov.innerHTML=nats.map(n=>`<span style="display:inline-block;background:rgba(26,107,124,.08);border:1px solid rgba(26,107,124,.15);border-radius:30px;padding:.3rem .9rem;margin:.25rem;font-size:.85rem;color:var(--ocean-dark);">🌍 ${n}</span>`).join('');
+  }catch{}
+}
+
+async function testRecommendation(){
+  const nat=document.getElementById('test-nat').value.trim();
+  if(!nat){showToast('Enter a nationality','error');return;}
+  const el=document.getElementById('test-result');
+  el.innerHTML='<div class="spinner" style="margin:1rem auto;"></div>';
+  try{
+    const data=await apiGet(`/recommendations?nationality=${encodeURIComponent(nat)}`);
+    const ai=data.algorithm_info;
+    el.innerHTML=`
+      <div style="background:var(--sand);border-radius:var(--radius);padding:1.25rem;">
+        <p><strong>Mode:</strong> ${ai.mode}</p>
+        ${ai.global_mean?`<p><strong>Global mean:</strong> ${ai.global_mean}</p>`:''}
+        ${ai.total_reviews_used!==undefined?`<p><strong>Reviews used:</strong> ${ai.total_reviews_used}</p>`:''}
+        ${ai.dishes_evaluated?`<p><strong>Dishes evaluated:</strong> ${ai.dishes_evaluated}</p>`:''}
+        <p><strong>Has nationality data:</strong> ${data.has_nationality_data?'✅ Yes':'❌ No (using global fallback)'}</p>
+        <p style="margin-top:.75rem;"><strong>Top recommendations:</strong></p>
+        ${data.recommendations.slice(0,5).map((r,i)=>`<div style="padding:.4rem 0;font-size:.88rem;">${i+1}. ${r.dish.name} — Avg: <strong>${r.dish.avg_rating}</strong>/5 (${r.review_count} reviews)</div>`).join('')}
+      </div>`;
+  }catch(e){el.innerHTML=`<p style="color:var(--coral);">Error: ${e.message}</p>`;}
+}
+
+// ─── Dish CRUD ─────────────────────────────────────────────
+function openDishModal(){ document.getElementById('modal-title').textContent='Add New Dish'; document.getElementById('m-editing-id').value=''; ['m-name','m-desc','m-price'].forEach(id=>document.getElementById(id).value=''); document.getElementById('m-veg').checked=false; document.getElementById('m-top').checked=false; document.getElementById('dish-modal').classList.add('open'); }
+function closeModal(){ document.getElementById('dish-modal').classList.remove('open'); }
+function editDish(id,name,desc,cat,price,spice,isVeg,isTop){
+  document.getElementById('modal-title').textContent='Edit Dish';
+  document.getElementById('m-editing-id').value=id;
+  document.getElementById('m-name').value=name;
+  document.getElementById('m-desc').value=desc;
+  document.getElementById('m-cat').value=cat;
+  document.getElementById('m-price').value=price;
+  document.getElementById('m-spice').value=spice;
+  document.getElementById('m-veg').checked=isVeg;
+  document.getElementById('m-top').checked=!!isTop;
+  document.getElementById('dish-modal').classList.add('open');
+}
+async function saveDish(){
+  const id=document.getElementById('m-editing-id').value;
+  const payload={name:document.getElementById('m-name').value.trim(),description:document.getElementById('m-desc').value.trim(),category:document.getElementById('m-cat').value,price:parseFloat(document.getElementById('m-price').value),spice_level:document.getElementById('m-spice').value,is_veg:document.getElementById('m-veg').checked,is_top_seller:document.getElementById('m-top').checked};
+  if(!payload.name||!payload.description||!payload.price){showToast('Please fill all required fields','error');return;}
+  const btn=document.getElementById('modal-save-btn');btn.textContent='Saving…';btn.disabled=true;
+  try{
+    if(id){await apiPut(`/dishes/${id}`,payload);}else{await apiPost('/dishes',payload);}
+    showToast(id?'Dish updated!':'Dish added!','success');
+    closeModal();loadDishesTable();
+  }catch(e){showToast(e.message,'error');}
+  finally{btn.textContent='Save Dish';btn.disabled=false;}
+}
+async function deleteDish(id,name){
+  if(!confirm(`Delete "${name}"? This will also delete all its reviews.`))return;
+  try{await apiDelete(`/dishes/${id}`);showToast('Dish deleted.','success');loadDishesTable();}
+  catch(e){showToast(e.message,'error');}
+}
+async function deleteReview(id){
+  if(!confirm('Delete this review?'))return;
+  try{await apiDelete(`/reviews/${id}`);showToast('Review deleted.','success');loadReviewsTable();}
+  catch(e){showToast(e.message,'error');}
+}
+
+// Helper
+function escHtml(s){return s?s.replace(/'/g,"&#39;").replace(/"/g,"&quot;"):''}
+
+// Init
+loadOverview();loadNatOptions();
+</script>
+</body></html>

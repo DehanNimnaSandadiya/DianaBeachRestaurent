@@ -1,0 +1,464 @@
+2026-03-12 20:48:45,789 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-12 20:48:45,789 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-12 20:48:45,797 [INFO] werkzeug:  * Restarting with stat
+2026-03-12 20:48:46,339 [WARNING] werkzeug:  * Debugger is active!
+2026-03-12 20:48:46,342 [INFO] werkzeug:  * Debugger PIN: 390-752-853
+2026-03-12 20:49:25,897 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:49:25] "OPTIONS /api/auth/login HTTP/1.1" 200 -
+2026-03-12 20:49:34,279 [INFO] pymongo.serverSelection: {"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "ping", "topologyDescription": "<TopologyDescription id: 69b2d986fab3c40f7f303320, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-6e7yf68-shard-00-00.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('ac-6e7yf68-shard-00-01.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('ac-6e7yf68-shard-00-02.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "69b2d986fab3c40f7f303320"}, "remainingTimeMS": 5}
+2026-03-12 20:49:35,197 [INFO] database: MongoDB connection established.
+2026-03-12 20:49:35,495 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:49:35] "POST /api/auth/login HTTP/1.1" 200 -
+2026-03-12 20:49:37,009 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:49:37] "[31m[1mGET /api/admin/stats HTTP/1.1[0m" 401 -
+2026-03-12 20:49:37,083 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:49:37] "GET /api/nationalities HTTP/1.1" 200 -
+2026-03-12 20:49:55,498 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:49:55] "[31m[1mGET /api/admin/stats HTTP/1.1[0m" 401 -
+2026-03-12 20:49:55,589 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:49:55] "GET /api/nationalities HTTP/1.1" 200 -
+2026-03-12 20:51:40,645 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-12 20:51:40,645 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-12 20:51:40,646 [INFO] werkzeug:  * Restarting with stat
+2026-03-12 20:51:41,164 [WARNING] werkzeug:  * Debugger is active!
+2026-03-12 20:51:41,167 [INFO] werkzeug:  * Debugger PIN: 390-752-853
+2026-03-12 20:53:26,999 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-12 20:53:27,000 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-12 20:53:27,001 [INFO] werkzeug:  * Restarting with stat
+2026-03-12 20:53:27,466 [WARNING] werkzeug:  * Debugger is active!
+2026-03-12 20:53:27,468 [INFO] werkzeug:  * Debugger PIN: 390-752-853
+2026-03-12 20:53:42,640 [INFO] pymongo.serverSelection: {"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "ping", "topologyDescription": "<TopologyDescription id: 69b2da7e875910b7f644e63c, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-6e7yf68-shard-00-00.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('ac-6e7yf68-shard-00-01.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('ac-6e7yf68-shard-00-02.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "69b2da7e875910b7f644e63c"}, "remainingTimeMS": 5}
+2026-03-12 20:53:43,592 [INFO] database: MongoDB connection established.
+2026-03-12 20:53:43,675 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:53:43] "GET /api/health HTTP/1.1" 200 -
+2026-03-12 20:53:45,949 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:53:45] "GET /api/health HTTP/1.1" 200 -
+2026-03-12 20:53:46,015 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:53:46] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-03-12 20:53:54,829 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:53:54] "GET /api/stats HTTP/1.1" 200 -
+2026-03-12 20:53:56,526 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:53:56] "[31m[1mGET /api/admin/stats HTTP/1.1[0m" 401 -
+2026-03-12 20:53:56,602 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:53:56] "GET /api/nationalities HTTP/1.1" 200 -
+2026-03-12 20:53:56,949 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:53:56] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-12 20:59:32,769 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:59:32] "OPTIONS /api/admin/stats HTTP/1.1" 200 -
+2026-03-12 20:59:32,771 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:59:32] "OPTIONS /api/nationalities HTTP/1.1" 200 -
+2026-03-12 20:59:32,850 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:59:32] "GET /api/nationalities HTTP/1.1" 200 -
+2026-03-12 20:59:37,565 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 20:59:37] "GET /api/admin/stats HTTP/1.1" 200 -
+2026-03-12 21:00:08,189 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 21:00:08] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-12 21:00:09,958 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 21:00:09] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-12 21:00:13,162 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 21:00:13] "OPTIONS /api/reviews HTTP/1.1" 200 -
+2026-03-12 21:00:16,098 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 21:00:16] "GET /api/reviews HTTP/1.1" 200 -
+2026-03-12 21:00:18,449 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 21:00:18] "OPTIONS /api/nationalities HTTP/1.1" 200 -
+2026-03-12 21:00:18,520 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 21:00:18] "GET /api/nationalities HTTP/1.1" 200 -
+2026-03-12 21:00:30,421 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 21:00:30] "GET /api/stats HTTP/1.1" 200 -
+2026-03-12 21:00:31,774 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 21:00:31] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-12 21:15:41,840 [INFO] recommendation_engine: No nationality data for "Sri Lankan", using global fallback.
+2026-03-12 21:15:45,321 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 21:15:45] "GET /api/recommendations?nationality=Sri%20Lankan HTTP/1.1" 200 -
+2026-03-12 21:15:49,864 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 21:15:49] "GET /api/nationalities HTTP/1.1" 200 -
+2026-03-12 21:15:51,013 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 21:15:51] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-12 21:15:52,674 [INFO] werkzeug: 127.0.0.1 - - [12/Mar/2026 21:15:52] "GET /api/reviews HTTP/1.1" 200 -
+2026-03-18 09:06:36,157 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-18 09:06:36,157 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-18 09:06:36,163 [INFO] werkzeug:  * Restarting with stat
+2026-03-18 09:06:36,630 [WARNING] werkzeug:  * Debugger is active!
+2026-03-18 09:06:36,635 [INFO] werkzeug:  * Debugger PIN: 128-590-011
+2026-03-18 09:06:43,025 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:06:43] "[33mGET / HTTP/1.1[0m" 404 -
+2026-03-18 09:06:43,112 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:06:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-03-18 09:07:01,296 [INFO] pymongo.serverSelection: {"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "ping", "topologyDescription": "<TopologyDescription id: 69ba1ddd30da98788aa1d999, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-6e7yf68-shard-00-00.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('ac-6e7yf68-shard-00-01.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('ac-6e7yf68-shard-00-02.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "69ba1ddd30da98788aa1d999"}, "remainingTimeMS": 5}
+2026-03-18 09:07:02,078 [INFO] database: MongoDB connection established.
+2026-03-18 09:07:02,159 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:07:02] "GET /api/health HTTP/1.1" 200 -
+2026-03-18 09:07:13,066 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:07:13] "GET /api/stats HTTP/1.1" 200 -
+2026-03-18 09:07:14,898 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:07:14] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-18 09:07:23,881 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:07:23] "GET /api/recommendations?nationality=Indian HTTP/1.1" 200 -
+2026-03-18 09:09:54,848 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:09:54] "GET /api/nationalities HTTP/1.1" 200 -
+2026-03-18 09:09:55,804 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:09:55] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-18 09:09:57,124 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:09:57] "GET /api/reviews HTTP/1.1" 200 -
+2026-03-18 09:10:04,265 [INFO] recommendation_engine: No nationality data for "Korean", using global fallback.
+2026-03-18 09:10:07,449 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:10:07] "GET /api/recommendations?nationality=Korean HTTP/1.1" 200 -
+2026-03-18 09:10:31,151 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\app.py', reloading
+2026-03-18 09:10:31,644 [INFO] werkzeug:  * Restarting with stat
+2026-03-18 09:10:32,162 [WARNING] werkzeug:  * Debugger is active!
+2026-03-18 09:10:32,169 [INFO] werkzeug:  * Debugger PIN: 128-590-011
+2026-03-18 09:10:43,310 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\seed_data.py', reloading
+2026-03-18 09:10:43,379 [INFO] werkzeug:  * Restarting with stat
+2026-03-18 09:10:43,887 [WARNING] werkzeug:  * Debugger is active!
+2026-03-18 09:10:43,892 [INFO] werkzeug:  * Debugger PIN: 128-590-011
+2026-03-18 09:11:45,597 [INFO] pymongo.serverSelection: {"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "ping", "topologyDescription": "<TopologyDescription id: 69ba1ef9cc3dffbebf3048ff, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-6e7yf68-shard-00-00.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('ac-6e7yf68-shard-00-01.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('ac-6e7yf68-shard-00-02.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "69ba1ef9cc3dffbebf3048ff"}, "remainingTimeMS": 5}
+2026-03-18 09:11:46,468 [INFO] database: MongoDB connection established.
+2026-03-18 09:11:47,546 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:11:47] "GET /api/recommendations?nationality=British HTTP/1.1" 200 -
+2026-03-18 09:13:30,505 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:13:30] "GET /api/nationalities HTTP/1.1" 200 -
+2026-03-18 09:13:31,686 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:13:31] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-18 09:13:33,854 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:13:33] "GET /api/reviews HTTP/1.1" 200 -
+2026-03-18 09:13:45,898 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:13:45] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-18 09:14:25,346 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:14:25] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-18 09:19:11,468 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:19:11] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-18 09:19:29,126 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:19:29] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-18 09:27:14,989 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:14] "OPTIONS /api/auth/login HTTP/1.1" 200 -
+2026-03-18 09:27:15,485 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:15] "POST /api/auth/login HTTP/1.1" 200 -
+2026-03-18 09:27:17,839 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:17] "OPTIONS /api/admin/stats HTTP/1.1" 200 -
+2026-03-18 09:27:17,841 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:17] "OPTIONS /api/nationalities HTTP/1.1" 200 -
+2026-03-18 09:27:18,074 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:18] "GET /api/nationalities HTTP/1.1" 200 -
+2026-03-18 09:27:22,507 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:22] "GET /api/admin/stats HTTP/1.1" 200 -
+2026-03-18 09:27:24,080 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:24] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-18 09:27:25,624 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:25] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-18 09:27:40,553 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:40] "OPTIONS /api/dishes/69b2d94f6633340d09c0613b HTTP/1.1" 200 -
+2026-03-18 09:27:40,893 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:40] "PUT /api/dishes/69b2d94f6633340d09c0613b HTTP/1.1" 200 -
+2026-03-18 09:27:40,897 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:40] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-18 09:27:42,474 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:42] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-18 09:27:47,923 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:47] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-18 09:27:47,924 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:47] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-18 09:27:48,143 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:48] "GET /api/stats HTTP/1.1" 200 -
+2026-03-18 09:27:49,395 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:49] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-18 09:27:50,087 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:50] "OPTIONS /api/recommendations?nationality=British HTTP/1.1" 200 -
+2026-03-18 09:27:51,200 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:51] "GET /api/recommendations?nationality=British HTTP/1.1" 200 -
+2026-03-18 09:27:56,068 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:56] "OPTIONS /api/recommendations?nationality=Indian HTTP/1.1" 200 -
+2026-03-18 09:27:57,184 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:57] "GET /api/recommendations?nationality=Indian HTTP/1.1" 200 -
+2026-03-18 09:27:59,386 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:27:59] "OPTIONS /api/recommendations?nationality=German HTTP/1.1" 200 -
+2026-03-18 09:28:00,175 [INFO] werkzeug: 127.0.0.1 - - [18/Mar/2026 09:28:00] "GET /api/recommendations?nationality=German HTTP/1.1" 200 -
+2026-03-20 11:17:08,222 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-20 11:17:08,222 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-20 11:17:08,228 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 11:17:08,619 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 11:17:08,623 [INFO] werkzeug:  * Debugger PIN: 128-590-011
+2026-03-20 11:17:17,133 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 11:17:17] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-20 11:17:17,226 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 11:17:17] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 11:17:27,223 [INFO] database: MongoDB connection established.
+2026-03-20 11:17:27,235 [INFO] database: MongoDB connection established.
+2026-03-20 11:17:27,425 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 11:17:27] "GET /api/stats HTTP/1.1" 200 -
+2026-03-20 11:17:29,510 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 11:17:29] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 11:22:51,612 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 11:22:51] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-20 11:22:51,630 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 11:22:51] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 11:22:51,846 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 11:22:51] "GET /api/stats HTTP/1.1" 200 -
+2026-03-20 11:22:53,308 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 11:22:53] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 11:35:19,140 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-20 11:35:19,140 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-20 11:35:19,151 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 11:35:19,550 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 11:35:19,556 [INFO] werkzeug:  * Debugger PIN: 813-553-175
+2026-03-20 11:35:27,430 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 11:35:27] "OPTIONS /api/recommendations?nationality=Sri%20Lankan HTTP/1.1" 200 -
+2026-03-20 11:35:37,512 [INFO] database: MongoDB connection established.
+2026-03-20 11:35:37,583 [INFO] recommendation_engine: No nationality data for "Sri Lankan", using global fallback.
+2026-03-20 11:35:40,747 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 11:35:40] "GET /api/recommendations?nationality=Sri%20Lankan HTTP/1.1" 200 -
+2026-03-20 12:13:39,094 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\recommendation_engine.py', reloading
+2026-03-20 12:13:39,549 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 12:13:41,853 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 12:13:41,858 [INFO] werkzeug:  * Debugger PIN: 813-553-175
+2026-03-20 12:15:09,002 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\seed_data.py', reloading
+2026-03-20 12:15:09,058 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 12:15:09,440 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 12:15:09,445 [INFO] werkzeug:  * Debugger PIN: 813-553-175
+2026-03-20 12:16:43,750 [INFO] database: MongoDB connection established.
+2026-03-20 12:16:48,407 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:16:48] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:17:05,285 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:17:05] "GET /api/recommendations?nationality=British HTTP/1.1" 200 -
+2026-03-20 12:19:19,776 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:19:19] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:19:24,478 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:19:24] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:21:03,290 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\seed_data.py', reloading
+2026-03-20 12:21:03,813 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 12:21:04,293 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 12:21:04,300 [INFO] werkzeug:  * Debugger PIN: 813-553-175
+2026-03-20 12:21:39,504 [INFO] database: MongoDB connection established.
+2026-03-20 12:21:44,887 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:21:44] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:21:54,512 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:21:54] "GET /api/recommendations?nationality=Korean HTTP/1.1" 200 -
+2026-03-20 12:44:10,154 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\app.py', reloading
+2026-03-20 12:44:10,701 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 12:45:44,149 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-20 12:45:44,149 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-20 12:45:44,157 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 12:45:44,580 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 12:45:44,583 [INFO] werkzeug:  * Debugger PIN: 412-437-848
+2026-03-20 12:46:11,135 [INFO] pymongo.serverSelection: {"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "ping", "topologyDescription": "<TopologyDescription id: 69bcf43bb1a25badefa839cd, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-6e7yf68-shard-00-00.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('ac-6e7yf68-shard-00-01.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('ac-6e7yf68-shard-00-02.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "69bcf43bb1a25badefa839cd"}, "remainingTimeMS": 5}
+2026-03-20 12:46:12,089 [INFO] database: MongoDB connection established.
+2026-03-20 12:46:16,762 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:46:16] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:46:31,335 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:46:31] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:48:35,487 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\seed_data.py', reloading
+2026-03-20 12:48:35,871 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 12:48:36,296 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 12:48:36,298 [INFO] werkzeug:  * Debugger PIN: 412-437-848
+2026-03-20 12:49:10,060 [INFO] pymongo.serverSelection: {"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "ping", "topologyDescription": "<TopologyDescription id: 69bcf4ee251a9b88997a5ff0, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-6e7yf68-shard-00-00.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('ac-6e7yf68-shard-00-01.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('ac-6e7yf68-shard-00-02.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "69bcf4ee251a9b88997a5ff0"}, "remainingTimeMS": 5}
+2026-03-20 12:49:12,500 [INFO] database: MongoDB connection established.
+2026-03-20 12:49:45,254 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:49:45] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:50:17,807 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:50:17] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:50:37,364 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:50:37] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:50:57,048 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\seed_data.py', reloading
+2026-03-20 12:50:57,260 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 12:50:57,700 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 12:50:57,702 [INFO] werkzeug:  * Debugger PIN: 412-437-848
+2026-03-20 12:51:40,104 [INFO] pymongo.serverSelection: {"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "ping", "topologyDescription": "<TopologyDescription id: 69bcf584b8a66cb4f0d3d166, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-6e7yf68-shard-00-00.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('ac-6e7yf68-shard-00-01.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('ac-6e7yf68-shard-00-02.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "69bcf584b8a66cb4f0d3d166"}, "remainingTimeMS": 5}
+2026-03-20 12:51:40,902 [INFO] database: MongoDB connection established.
+2026-03-20 12:51:46,057 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:51:46] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:51:58,654 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:51:58] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:52:09,488 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:52:09] "GET /images/Prawn%20Tempura.jpg HTTP/1.1" 200 -
+2026-03-20 12:52:38,323 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:52:38] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:52:54,245 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:52:54] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:53:51,284 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-03-20 12:53:51,285 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-20 12:53:51,288 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 12:53:51,666 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 12:53:51,670 [INFO] werkzeug:  * Debugger PIN: 813-553-175
+2026-03-20 12:54:00,044 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:00] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-20 12:54:00,063 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:00] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:54:00,482 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:00] "GET /api/stats HTTP/1.1" 200 -
+2026-03-20 12:54:05,565 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:05] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:54:09,595 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:09] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:54:13,063 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:13] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:54:13,096 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:13] "GET /images/Bruschetta%20with%20Feta.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:13,097 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:13] "GET /images/Prawn%20Tempura.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:13,100 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:13] "GET /images/Spring%20Rolls.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:13,101 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:13] "GET /images/Teriyaki%20Fish.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:13,103 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:13] "GET /images/Tuna%20Burger.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:13,105 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:13] "GET /images/Tomato%20Soup.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:13,125 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:13] "GET /images/Cream%20of%20Chicken.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:13,126 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:13] "GET /images/Cream%20of%20Mushroom.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:13,130 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:13] "GET /images/Tom%20Yum%20Seafood.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:13,134 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:13] "GET /images/Greek%20Salad.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:14,900 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:14] "GET /images/Chicken%20Parmigiana.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:14,900 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:14] "GET /images/Thai%20Prawn%20Salad.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:15,357 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:15] "GET /images/Sri%20Lankan%20Red%20Chicken%20Curry.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:15,357 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:15] "GET /images/Devilled%20Chicken.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:15,357 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:15] "GET /images/Honey%20Garlic%20Chicken.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:15,806 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:15] "GET /images/Chicken%20Shawarma.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:15,807 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:15] "GET /images/Tuna%20Steak.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:16,240 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:16] "GET /images/Grilled%20Sea%20Fish.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:16,241 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:16] "GET /images/Hot%20Butter%20Cuttlefish.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:18,941 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:18] "GET /images/Crab%20Curry.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:18,942 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:18] "GET /images/Seafood%20Chop%20Suey%20Rice.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:18,944 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:18] "GET /images/Bolognese.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:20,014 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:20] "GET /images/Cream%20Chicken%20Pasta.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:20,015 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:20] "GET /images/Carbonara.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:20,016 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:20] "GET /images/Cheese%20Tomato%20Sandwich.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:20,548 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:20] "GET /images/Crispy%20Chicken%20Burger.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:20,549 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:20] "GET /images/Club%20Sandwich.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:21,004 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:21] "GET /images/Avocado%20Toast.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:21,005 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:21] "GET /images/Vegetable%20Rice.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:21,406 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:21] "GET /images/Thai%20Spicy%20Chicken%20Rice.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:21,407 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:21] "GET /images/Vegetable%20Noodles.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:22,771 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:22] "GET /images/Mee%20Goreng.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:23,457 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:23] "GET /images/Smoothie%20Bowl.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:23,558 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:23] "GET /images/Brownie%20with%20Ice%20Cream.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:23,558 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:23] "GET /images/Cheesecake.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:23,559 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:23] "GET /images/Watalappan.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:23,982 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:23] "GET /images/Mango%20Juice.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:24,380 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:24] "GET /images/Lime%20Juice.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:24,382 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:24] "GET /images/Cappuccino.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:24,383 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:24] "GET /images/Hot%20Chocolate.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:26,093 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:26] "GET /images/Margarita.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:26,093 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:26] "GET /images/Mojito%20Classic.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:26,094 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:26] "GET /images/Cosmopolitan.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:26,833 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:26] "GET /images/Blue%20Lagoon.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:26,834 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:26] "GET /images/Tequila%20Sunrise.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:26,835 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:26] "GET /images/Long%20Island%20Iced%20Tea.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:27,308 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:27] "GET /images/Whiskey%20Coke.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:27,308 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:27] "GET /images/Gin%20&%20Tonic.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:27,309 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:27] "GET /images/Vodka.jpg HTTP/1.1" 200 -
+2026-03-20 12:54:27,922 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:54:27] "GET /images/Whiskey.jpg HTTP/1.1" 200 -
+2026-03-20 12:55:40,787 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:55:40] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-20 12:55:40,797 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:55:40] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:55:41,016 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:55:41] "GET /api/stats HTTP/1.1" 200 -
+2026-03-20 12:55:45,664 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:55:45] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 12:55:45,679 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:55:45] "[36mGET /images/Spring%20Rolls.jpg HTTP/1.1[0m" 304 -
+2026-03-20 12:55:45,679 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:55:45] "[36mGET /images/Teriyaki%20Fish.jpg HTTP/1.1[0m" 304 -
+2026-03-20 12:55:45,680 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 12:55:45] "[36mGET /images/Bruschetta%20with%20Feta.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:01:16,452 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:16] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-20 13:01:16,453 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:16] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:01:16,695 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:16] "GET /api/stats HTTP/1.1" 200 -
+2026-03-20 13:01:18,162 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:18] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-20 13:01:18,164 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:18] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:01:18,416 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:18] "GET /api/stats HTTP/1.1" 200 -
+2026-03-20 13:01:20,782 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:20] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-20 13:01:20,790 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:20] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:01:21,018 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:21] "GET /api/stats HTTP/1.1" 200 -
+2026-03-20 13:01:22,116 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:22] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:01:24,180 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:24] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:01:26,779 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:26] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:01:47,695 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:47] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-20 13:01:47,799 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:47] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:01:47,944 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:47] "GET /api/stats HTTP/1.1" 200 -
+2026-03-20 13:01:50,103 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:50] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-20 13:01:50,111 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:50] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:01:50,891 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:50] "GET /api/stats HTTP/1.1" 200 -
+2026-03-20 13:01:52,886 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:52] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-20 13:01:52,893 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:52] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:01:54,240 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:54] "GET /api/stats HTTP/1.1" 200 -
+2026-03-20 13:01:58,421 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:01:58] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:02:00,206 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:02:00] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:02:00,833 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:02:00] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:02:00,877 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:02:00] "GET /images/Tomato%20Soup.jpg HTTP/1.1" 200 -
+2026-03-20 13:02:00,878 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:02:00] "[36mGET /images/Bruschetta%20with%20Feta.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:02:00,878 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:02:00] "[36mGET /images/Spring%20Rolls.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:02:00,879 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:02:00] "[36mGET /images/Teriyaki%20Fish.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:02:43,275 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:02:43] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:03:07,423 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:03:07,432 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Prawn%20Tempura.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,433 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "[36mGET /images/Bruschetta%20with%20Feta.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:03:07,434 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "[36mGET /images/Spring%20Rolls.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:03:07,442 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "[36mGET /images/Teriyaki%20Fish.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:03:07,442 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Tuna%20Burger.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,445 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "[36mGET /images/Tomato%20Soup.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:03:07,451 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Cream%20of%20Chicken.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,452 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Cream%20of%20Mushroom.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,454 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Tom%20Yum%20Seafood.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,462 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Greek%20Salad.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,464 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Chicken%20Parmigiana.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,464 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Thai%20Prawn%20Salad.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,471 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Devilled%20Chicken.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,474 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Sri%20Lankan%20Red%20Chicken%20Curry.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,479 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Honey%20Garlic%20Chicken.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,489 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Chicken%20Shawarma.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,491 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Tuna%20Steak.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,491 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Grilled%20Sea%20Fish.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,500 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Hot%20Butter%20Cuttlefish.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,500 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Crab%20Curry.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,505 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Seafood%20Chop%20Suey%20Rice.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,511 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Bolognese.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,513 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Carbonara.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,514 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Cream%20Chicken%20Pasta.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,523 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Cheese%20Tomato%20Sandwich.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,524 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Crispy%20Chicken%20Burger.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,524 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Club%20Sandwich.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,538 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Avocado%20Toast.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,538 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Vegetable%20Rice.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,539 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Thai%20Spicy%20Chicken%20Rice.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,548 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Mee%20Goreng.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,549 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Vegetable%20Noodles.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,555 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Smoothie%20Bowl.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,560 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Brownie%20with%20Ice%20Cream.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,569 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Cheesecake.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,573 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Watalappan.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,578 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Mango%20Juice.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,582 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Lime%20Juice.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,586 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Cappuccino.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,589 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Hot%20Chocolate.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,595 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Mojito%20Classic.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,599 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Margarita.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,604 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Cosmopolitan.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,608 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Blue%20Lagoon.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,612 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Tequila%20Sunrise.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,616 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Long%20Island%20Iced%20Tea.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,622 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Whiskey%20Coke.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,626 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Gin%20&%20Tonic.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,630 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Vodka.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:07,635 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:07] "GET /images/Whiskey.jpg HTTP/1.1" 200 -
+2026-03-20 13:03:15,257 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:15] "OPTIONS /api/admin/stats HTTP/1.1" 200 -
+2026-03-20 13:03:15,259 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:15] "OPTIONS /api/nationalities HTTP/1.1" 200 -
+2026-03-20 13:03:15,262 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:15] "[31m[1mGET /api/admin/stats HTTP/1.1[0m" 401 -
+2026-03-20 13:03:15,335 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:15] "GET /api/nationalities HTTP/1.1" 200 -
+2026-03-20 13:03:17,236 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:17] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:03:17,847 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:17] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-20 13:03:17,849 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:17] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:03:18,782 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:18] "GET /api/stats HTTP/1.1" 200 -
+2026-03-20 13:03:27,865 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:27] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:03:27,878 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:27] "[36mGET /images/Bruschetta%20with%20Feta.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:03:27,881 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:27] "[36mGET /images/Spring%20Rolls.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:03:27,884 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:27] "[36mGET /images/Teriyaki%20Fish.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:03:27,887 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:03:27] "[36mGET /images/Tomato%20Soup.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:04:53,026 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:04:53] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-20 13:04:53,032 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:04:53] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:04:53,253 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:04:53] "GET /api/stats HTTP/1.1" 200 -
+2026-03-20 13:05:00,532 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:05:00] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:05:00,539 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:05:00] "[36mGET /images/Bruschetta%20with%20Feta.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:05:00,540 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:05:00] "[36mGET /images/Spring%20Rolls.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:05:00,542 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:05:00] "[36mGET /images/Teriyaki%20Fish.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:05:00,546 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:05:00] "[36mGET /images/Tomato%20Soup.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:06:25,390 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:06:25] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-20 13:06:25,398 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:06:25] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:06:25,620 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:06:25] "GET /api/stats HTTP/1.1" 200 -
+2026-03-20 13:06:33,042 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:06:33] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:06:33,049 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:06:33] "[36mGET /images/Bruschetta%20with%20Feta.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:06:33,050 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:06:33] "[36mGET /images/Spring%20Rolls.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:06:33,051 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:06:33] "[36mGET /images/Teriyaki%20Fish.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:06:33,057 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:06:33] "[36mGET /images/Tomato%20Soup.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:07:32,680 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:32] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-20 13:07:32,681 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:32] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:07:32,911 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:32] "GET /api/stats HTTP/1.1" 200 -
+2026-03-20 13:07:39,834 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:39] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:07:39,855 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:39] "[36mGET /images/Teriyaki%20Fish.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:07:39,856 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:39] "[36mGET /images/Bruschetta%20with%20Feta.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:07:39,856 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:39] "[36mGET /images/Spring%20Rolls.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:07:42,892 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:42] "[36mGET /images/Tomato%20Soup.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:07:56,807 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:56] "OPTIONS /api/recommendations?nationality=Sri%20Lankan HTTP/1.1" 200 -
+2026-03-20 13:07:59,086 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:59] "GET /api/recommendations?nationality=Sri%20Lankan HTTP/1.1" 200 -
+2026-03-20 13:07:59,120 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:59] "[36mGET /images/Devilled%20Chicken.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:07:59,122 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:59] "[36mGET /images/Sri%20Lankan%20Red%20Chicken%20Curry.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:07:59,125 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:59] "[36mGET /images/Hot%20Butter%20Cuttlefish.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:07:59,129 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:59] "[36mGET /images/Crab%20Curry.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:07:59,131 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:59] "[36mGET /images/Watalappan.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:07:59,134 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:59] "[36mGET /images/Mojito%20Classic.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:07:59,137 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:59] "[36mGET /images/Margarita.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:07:59,140 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:07:59] "[36mGET /images/Cosmopolitan.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:12:20,432 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:12:20] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-20 13:12:20,433 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:12:20] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:12:20,650 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:12:20] "GET /api/stats HTTP/1.1" 200 -
+2026-03-20 13:12:22,984 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:12:22] "OPTIONS /api/stats HTTP/1.1" 200 -
+2026-03-20 13:12:22,985 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:12:22] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:12:23,207 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:12:23] "GET /api/stats HTTP/1.1" 200 -
+2026-03-20 13:12:26,241 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:12:26] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:12:28,679 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:12:28] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:12:28,687 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:12:28] "[36mGET /images/Teriyaki%20Fish.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:12:28,687 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:12:28] "[36mGET /images/Bruschetta%20with%20Feta.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:12:28,687 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:12:28] "[36mGET /images/Spring%20Rolls.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:12:28,693 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:12:28] "[36mGET /images/Tomato%20Soup.jpg HTTP/1.1[0m" 304 -
+2026-03-20 13:23:13,108 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\tests\\test_api.py', reloading
+2026-03-20 13:23:13,333 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\auth.py', reloading
+2026-03-20 13:23:13,424 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 13:23:13,696 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 13:23:14,065 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 13:23:14,072 [INFO] werkzeug:  * Debugger PIN: 813-553-175
+2026-03-20 13:23:14,355 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 13:23:14,357 [INFO] werkzeug:  * Debugger PIN: 412-437-848
+2026-03-20 13:28:07,903 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\seed_data.py', reloading
+2026-03-20 13:28:07,926 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\seed_data.py', reloading
+2026-03-20 13:28:07,975 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 13:28:08,005 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 13:28:08,459 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 13:28:08,465 [INFO] werkzeug:  * Debugger PIN: 813-553-175
+2026-03-20 13:28:08,587 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 13:28:08,590 [INFO] werkzeug:  * Debugger PIN: 412-437-848
+2026-03-20 13:28:20,678 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\app.py', reloading
+2026-03-20 13:28:20,696 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\app.py', reloading
+2026-03-20 13:28:20,751 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 13:28:20,765 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 13:28:21,303 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 13:28:21,309 [INFO] werkzeug:  * Debugger PIN: 813-553-175
+2026-03-20 13:28:21,361 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 13:28:21,363 [INFO] werkzeug:  * Debugger PIN: 412-437-848
+2026-03-20 13:28:33,442 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\app.py', reloading
+2026-03-20 13:28:33,444 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\app.py', reloading
+2026-03-20 13:28:33,516 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 13:28:33,529 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 13:28:33,945 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 13:28:33,951 [INFO] werkzeug:  * Debugger PIN: 813-553-175
+2026-03-20 13:28:34,039 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 13:28:34,041 [INFO] werkzeug:  * Debugger PIN: 412-437-848
+2026-03-20 13:28:48,379 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.8.147:5000
+2026-03-20 13:28:48,379 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-20 13:28:48,380 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 13:28:48,812 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 13:28:48,814 [INFO] werkzeug:  * Debugger PIN: 412-437-848
+2026-03-20 13:28:54,427 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:28:54] "GET / HTTP/1.1" 200 -
+2026-03-20 13:29:00,684 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:29:00] "GET /images/Prawn%20Tempura.jpg HTTP/1.1" 200 -
+2026-03-20 13:29:40,166 [INFO] pymongo.serverSelection: {"message": "Waiting for suitable server to become available", "selector": "Primary()", "operation": "ping", "topologyDescription": "<TopologyDescription id: 69bcfe6cb70a21e76cd994e5, topology_type: ReplicaSetNoPrimary, servers: [<ServerDescription ('ac-6e7yf68-shard-00-00.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('ac-6e7yf68-shard-00-01.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>, <ServerDescription ('ac-6e7yf68-shard-00-02.uvwzlop.mongodb.net', 27017) server_type: Unknown, rtt: None>]>", "clientId": {"$oid": "69bcfe6cb70a21e76cd994e5"}, "remainingTimeMS": 5}
+2026-03-20 13:29:42,336 [INFO] database: MongoDB connection established.
+2026-03-20 13:29:51,451 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:29:51] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 13:29:58,044 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 13:29:58] "GET /api/dishes HTTP/1.1" 200 -
+2026-03-20 14:11:19,645 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\app.py', reloading
+2026-03-20 14:11:19,699 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\app.py', reloading
+2026-03-20 14:11:19,792 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 14:11:20,115 [INFO] werkzeug:  * Detected change in 'D:\\Personal Projects\\diana-beach-v2-final\\diana-v2\\backend\\app.py', reloading
+2026-03-20 14:11:20,152 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 14:11:20,218 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 14:11:21,841 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 14:11:21,847 [INFO] werkzeug:  * Debugger PIN: 813-553-175
+2026-03-20 14:11:22,424 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 14:11:22,427 [INFO] werkzeug:  * Debugger PIN: 412-437-848
+2026-03-20 14:11:44,895 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.8.147:5000
+2026-03-20 14:11:44,895 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-03-20 14:11:44,896 [INFO] werkzeug:  * Restarting with stat
+2026-03-20 14:11:45,346 [WARNING] werkzeug:  * Debugger is active!
+2026-03-20 14:11:45,348 [INFO] werkzeug:  * Debugger PIN: 412-437-848
+2026-03-20 14:12:02,381 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 14:12:02] "OPTIONS /api/dishes HTTP/1.1" 200 -
+2026-03-20 14:12:20,244 [INFO] database: MongoDB connection established.
+2026-03-20 14:12:26,714 [INFO] werkzeug: 127.0.0.1 - - [20/Mar/2026 14:12:26] "GET /api/dishes HTTP/1.1" 200 -

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Diana Beach Restaurant
 ### Personalised Nationality-Based Food Recommendation System
 **Final Year Project — BSc Computing Science in Software Engineering**
@@ -212,3 +213,7 @@ See `backend/API_DOCS.md` for full documentation.
 - Image upload functionality not implemented (placeholder emoji used)
 - Collaborative filtering could further improve recommendations
 - Mobile app version could use the same REST API
+=======
+# DianaBeachRestaurent
+This Web Solution is made for Diana Beach Restaurant Located In Polhena, Matara.
+>>>>>>> b9aed6f1cd17b827e6676d36497c2c543425f1d9

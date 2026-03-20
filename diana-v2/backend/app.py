@@ -38,7 +38,7 @@ import os
 from datetime import datetime
 
 from bson import ObjectId
-from flask import Flask, jsonify, request, send_from_directory, abort
+from flask import Flask, jsonify, request, send_from_directory, abort, make_response
 from flask_cors import CORS
 from flask_jwt_extended import (JWTManager, jwt_required,
                                 get_jwt_identity)
@@ -71,7 +71,9 @@ app = Flask(__name__)
 app.config['JWT_SECRET_KEY'] = config.JWT_SECRET_KEY
 app.config['JWT_ACCESS_TOKEN_EXPIRES'] = config.JWT_ACCESS_TOKEN_EXPIRES
 
-CORS(app, resources={r'/api/*': {'origins': '*'}})
+# Flask-CORS can be finicky with regex patterns; use a strict prefix match
+# and also add explicit headers in an `after_request` handler below.
+CORS(app, resources={r"^/api/.*": {"origins": "*"}})
 jwt = JWTManager(app)
 
 # ─── Local Food Images Serving ─────────────────────────────────────────
@@ -84,6 +86,24 @@ def serve_food_images(filename: str):
     Frontend uses `/images/<filename>` URLs returned by the backend.
     """
     return send_from_directory(FOOD_IMAGES_DIR, filename)
+
+
+# ─── CORS Hard Fix (for cross-domain Vercel -> Render) ─────────────────
+@app.after_request
+def add_cors_headers(response):
+    origin = request.headers.get("Origin")
+    # Always set headers so browsers never block requests.
+    response.headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Authorization,Content-Type"
+    response.headers["Vary"] = "Origin"
+    response.headers["Access-Control-Allow-Origin"] = origin if origin else "*"
+    return response
+
+
+@app.route("/api/<path:path>", methods=["OPTIONS"])
+def options_api(path: str):
+    resp = make_response("", 204)
+    return resp
 
 # ─── Static Frontend Hosting (for free deploy) ─────────────────────────────
 FRONTEND_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend"))

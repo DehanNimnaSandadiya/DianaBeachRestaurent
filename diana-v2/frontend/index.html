@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Diana Beach Restaurant — Matara, Sri Lanka</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<nav class="navbar">
+  <a href="index.html" class="nav-logo"><span class="logo-name">Diana Beach</span><span class="logo-sub">Restaurant · Matara</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="menu.html">Menu</a></li>
+    <li><a href="recommendations.html">Recommendations</a></li><li><a href="reviews.html">Reviews</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="recommendations.html" class="nav-cta" id="nav-recommendations-popup">Get Recommendations</a></li>
+  </ul>
+  <button class="nav-toggle"><span></span><span></span><span></span></button>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg" style="background-image:url('../../LandingImage.jpg')"></div>
+  <div class="hero-content">
+    <span class="hero-tag">🌊 Matara · Southern Coast · Sri Lanka</span>
+    <h1 class="hero-title">Dine Where the<br><em>Ocean Meets Flavour</em></h1>
+    <p class="hero-sub">Experience personalised dining at Diana Beach Restaurant — where every visitor discovers dishes tailored just for them, based on their nationality and the preferences of fellow travellers.</p>
+    <div class="hero-actions">
+      <a href="recommendations.html" class="btn btn-primary" id="hero-recommendations-popup">🌍 Get My Recommendations</a>
+      <a href="menu.html" class="btn btn-outline">View Our Menu</a>
+    </div>
+  </div>
+  <div class="hero-waves"><svg viewBox="0 0 1440 120" fill="none" preserveAspectRatio="none"><path d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,120 L0,120 Z" fill="#fdfaf6"/></svg></div>
+</section>
+
+<div class="stats-bar">
+  <div class="stats-grid">
+    <div class="stat-item"><h3 id="stat-dishes">—</h3><p>Signature Dishes</p></div>
+    <div class="stat-item"><h3 id="stat-reviews">—</h3><p>Guest Reviews</p></div>
+    <div class="stat-item"><h3 id="stat-nations">—</h3><p>Nationalities Served</p></div>
+    <div class="stat-item"><h3>Est. 2005</h3><p>Years on the Coast</p></div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">What We Offer</span>
+      <h2 class="section-title">A Smarter Dining Experience</h2>
+      <p class="section-sub">Diana Beach Restaurant combines authentic Sri Lankan flavours with intelligent, personalised food discovery.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card"><div class="feature-icon">🌍</div><h3>Nationality-Based Recommendations</h3><p>Tell us where you're from and we'll show you the dishes most loved by visitors from your country — based on real reviews.</p></div>
+      <div class="feature-card"><div class="feature-icon">⭐</div><h3>Powered by Real Reviews</h3><p>Every recommendation is backed by genuine guest ratings and feedback, updated in real-time as new visitors share their experience.</p></div>
+      <div class="feature-card"><div class="feature-icon">🌊</div><h3>Coastal Cuisine</h3><p>Fresh seafood straight from Matara's fishing boats, traditional Sri Lankan rice & curry, and refreshing tropical beverages.</p></div>
+      <div class="feature-card"><div class="feature-icon">🌿</div><h3>For Every Dietary Need</h3><p>Clearly marked vegetarian options, spice level indicators, and a wide variety of dishes to suit every palate and preference.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Popular Choices</span>
+      <h2 class="section-title">Guest Favourites</h2>
+      <p class="section-sub">Our most celebrated dishes, loved by visitors from around the world.</p>
+    </div>
+    <div class="dishes-grid" id="featured-dishes"><div class="loading-state"><div class="spinner"></div></div></div>
+    <div style="text-align:center;margin-top:2.5rem;"><a href="menu.html" class="btn btn-ocean">View Full Menu →</a></div>
+  </div>
+</section>
+
+<section style="background:linear-gradient(135deg,var(--ocean-dark),var(--ocean));padding:5rem 2rem;text-align:center;color:white;">
+  <span class="hero-tag">✨ Personalised For You</span>
+  <h2 style="font-size:clamp(2rem,4vw,3.2rem);margin:1rem 0;">Not Sure What to Order?</h2>
+  <p style="opacity:.85;max-width:480px;margin:0 auto 2rem;">Our Bayesian recommendation engine analyses reviews from guests who share your nationality and suggests the dishes they loved most.</p>
+  <a href="recommendations.html" class="btn btn-primary" id="discover-recommendations-popup" style="font-size:1rem;">🌍 Discover My Recommendations</a>
+</section>
+
+<!-- Recommendations popup modal -->
+<div id="recommendations-popup-overlay" class="site-modal-overlay" style="display:none;">
+  <div class="site-modal" role="dialog" aria-modal="true" aria-labelledby="recommendations-popup-title">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;">
+      <div>
+        <h2 id="recommendations-popup-title" style="font-size:1.5rem;margin-bottom:.25rem;">Get Recommendations</h2>
+        <p style="color:var(--text-mid);font-size:.95rem;margin-bottom:1.25rem;">Choose your nationality and we will suggest the best dishes for you.</p>
+      </div>
+      <button type="button" id="recommendations-popup-close" class="modal-close" aria-label="Close">✕</button>
+    </div>
+    <div style="display:flex;gap:1rem;justify-content:flex-end;flex-wrap:wrap;">
+      <button type="button" id="recommendations-popup-cancel" class="btn btn-outline">Close</button>
+      <button type="button" id="recommendations-popup-go" class="btn btn-primary">Get Recommendations</button>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand"><div class="logo-name">Diana Beach Restaurant</div><div class="logo-sub">Matara · Sri Lanka</div><p>A beachside dining experience on Sri Lanka's southern coast, offering authentic cuisine and warm hospitality.</p></div>
+    <div class="footer-col"><h4>Navigation</h4><a href="index.html">Home</a><a href="menu.html">Menu</a><a href="recommendations.html">Recommendations</a><a href="reviews.html">Reviews</a><a href="about.html">About Us</a></div>
+    <div class="footer-col"><h4>Menu</h4><a href="menu.html?cat=Seafood">Seafood</a><a href="menu.html?cat=Rice+%26+Curry">Rice & Curry</a><a href="menu.html?cat=Starters">Starters</a><a href="menu.html?cat=Beverages">Beverages</a><a href="menu.html?cat=Desserts">Desserts</a></div>
+    <div class="footer-col"><h4>Contact</h4><p>📍 Beach Road, Matara</p><p>📞 +94 41 222 XXXX</p><p>✉️ info@dianabeach.lk</p><p>🕐 Open Daily 7am–10pm</p></div>
+  </div>
+  <div class="footer-bottom">© 2025 Diana Beach Restaurant. All rights reserved.</div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+(async()=>{
+  try{
+    const dishes=await apiGet('/dishes');
+    const rated=dishes.filter(d=>Number(d.review_count||0) > 0);
+    const sorted=rated.sort((a,b)=>(b.avg_rating||0)-(a.avg_rating||0)).slice(0,4);
+    document.getElementById('featured-dishes').innerHTML=sorted.length?sorted.map(d=>renderDishCard(d)).join(''):'<p class="empty-state">No dishes yet.</p>';
+  }catch(e){
+    document.getElementById('featured-dishes').innerHTML=`<div class="empty-state"><div class="empty-icon">⚠️</div><h3>Backend not running</h3><p>Start Flask: <code>cd backend && python app.py</code></p></div>`;
+  }
+})();
+</script>
+</body></html>

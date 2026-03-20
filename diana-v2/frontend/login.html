@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Sign In — Diana Beach Restaurant</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div class="auth-page">
+  <div class="auth-card">
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <a href="index.html" style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--ocean-dark);font-weight:600;">Diana Beach</a>
+      <div style="font-size:.7rem;color:var(--text-light);letter-spacing:.2em;text-transform:uppercase;">Restaurant · Matara</div>
+    </div>
+
+    <!-- Tabs -->
+    <div style="display:flex;border-bottom:2px solid var(--sand-dark);margin-bottom:2rem;">
+      <button class="tab-btn active" data-tab="login" style="flex:1;padding:.75rem;background:none;border:none;font-family:'Jost',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;color:var(--ocean);border-bottom:2px solid var(--ocean);margin-bottom:-2px;">Sign In</button>
+      <button class="tab-btn" data-tab="register" style="flex:1;padding:.75rem;background:none;border:none;font-family:'Jost',sans-serif;font-size:.95rem;font-weight:500;cursor:pointer;color:var(--text-mid);">Create Account</button>
+    </div>
+
+    <!-- Login Form -->
+    <div id="tab-login">
+      <div class="form-group"><label>Email Address</label><input class="form-control" type="email" id="login-email" placeholder="you@example.com"/></div>
+      <div class="form-group"><label>Password</label><input class="form-control" type="password" id="login-password" placeholder="Your password"/></div>
+      <button class="btn btn-ocean" id="login-btn" style="width:100%;justify-content:center;">Sign In →</button>
+      <p style="text-align:center;margin-top:1rem;font-size:.85rem;color:var(--text-mid);">
+        Admin demo: <strong>admin@dianabeach.lk</strong> / <strong>Admin@Diana2025</strong>
+      </p>
+    </div>
+
+    <!-- Register Form -->
+    <div id="tab-register" style="display:none;">
+      <div class="form-group"><label>Full Name</label><input class="form-control" type="text" id="reg-name" placeholder="John Smith"/></div>
+      <div class="form-group"><label>Email Address</label><input class="form-control" type="email" id="reg-email" placeholder="you@example.com"/></div>
+      <div class="form-group"><label>Password <span style="font-weight:400;color:var(--text-light)">(min 8 characters)</span></label><input class="form-control" type="password" id="reg-password" placeholder="Choose a strong password"/></div>
+      <button class="btn btn-primary" id="register-btn" style="width:100%;justify-content:center;">Create Account →</button>
+    </div>
+
+    <div style="text-align:center;margin-top:1.5rem;">
+      <a href="index.html" style="font-size:.85rem;color:var(--text-light);">← Back to restaurant</a>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+<script>
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => {
+      b.classList.remove('active');
+      b.style.color='var(--text-mid)';b.style.fontWeight='500';b.style.borderBottom='none';
+    });
+    btn.classList.add('active');
+    btn.style.color='var(--ocean)';btn.style.fontWeight='600';btn.style.borderBottom='2px solid var(--ocean)';
+    document.getElementById('tab-login').style.display = btn.dataset.tab==='login'?'block':'none';
+    document.getElementById('tab-register').style.display = btn.dataset.tab==='register'?'block':'none';
+  });
+});
+
+// Login
+document.getElementById('login-btn').addEventListener('click', async () => {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  if (!email||!password){showToast('Please fill in all fields','error');return;}
+  const btn = document.getElementById('login-btn');
+  btn.textContent='Signing in…';btn.disabled=true;
+  try {
+    const data = await apiPost('/auth/login',{email,password});
+    Auth.save(data.token, data.user);
+    showToast('Welcome back, '+data.user.name+'!');
+    setTimeout(() => {
+      location.href = data.user.role==='admin' ? 'admin/dashboard.html' : 'index.html';
+    }, 800);
+  } catch(e){
+    showToast(e.message||'Login failed','error');
+    btn.textContent='Sign In →';btn.disabled=false;
+  }
+});
+
+// Register
+document.getElementById('register-btn').addEventListener('click', async () => {
+  const name=document.getElementById('reg-name').value.trim();
+  const email=document.getElementById('reg-email').value.trim();
+  const password=document.getElementById('reg-password').value;
+  if (!name||!email||!password){showToast('Please fill in all fields','error');return;}
+  const btn=document.getElementById('register-btn');
+  btn.textContent='Creating account…';btn.disabled=true;
+  try {
+    const data=await apiPost('/auth/register',{name,email,password});
+    Auth.save(data.token,data.user);
+    showToast('Account created! Welcome, '+data.user.name+'!');
+    setTimeout(()=>location.href='index.html',800);
+  } catch(e){
+    showToast(e.message||'Registration failed','error');
+    btn.textContent='Create Account →';btn.disabled=false;
+  }
+});
+
+// Redirect if already logged in
+if (Auth.isLoggedIn()) location.href = Auth.isAdmin() ? 'admin/dashboard.html' : 'index.html';
+</script>
+</body></html>

@@ -4,7 +4,26 @@
    ============================================================ */
 // When deployed together with the backend on the same domain, use relative API paths.
 // For local dev, open the site via `http://127.0.0.1:5000/` (not file://) so this works too.
-const API = '/api';
+const API = 'https://dianabeachrestaurent.onrender.com/api';
+
+function apiOriginFromApiBase(apiBase) {
+  if (!apiBase || typeof apiBase !== 'string') return '';
+  // apiBase can be '/api' (local) or 'https://your-backend.com/api'
+  return apiBase.startsWith('http')
+    ? apiBase.replace(/\/api\/?$/, '')
+    : '';
+}
+
+const API_ORIGIN = apiOriginFromApiBase(API);
+
+function resolveImageUrl(url) {
+  if (!url) return '';
+  const u = String(url);
+  if (u.startsWith('http://') || u.startsWith('https://')) return u;
+  // Backend-served dish images (stored in DB as "/images/<file>")
+  if (u.startsWith('/images/')) return API_ORIGIN ? `${API_ORIGIN}${u}` : u;
+  return u;
+}
 
 // ─── Navbar ───────────────────────────────────────────────
 const navbar = document.querySelector('.navbar');
@@ -191,7 +210,10 @@ function renderCartItems() {
   total.textContent = `LKR ${CartTotalPrice(items).toLocaleString()}`;
 
   container.innerHTML = items.map(it => {
-    const thumb = it.imageUrl ? `<img src="${it.imageUrl}" alt="${escAttr(it.name)}" class="cart-thumb" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : `<div class="cart-thumb cart-thumb-empty">🍽️</div>`;
+    const resolvedThumbUrl = it.imageUrl ? resolveImageUrl(it.imageUrl) : '';
+    const thumb = resolvedThumbUrl
+      ? `<img src="${resolvedThumbUrl}" alt="${escAttr(it.name)}" class="cart-thumb" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`
+      : `<div class="cart-thumb cart-thumb-empty">🍽️</div>`;
     return `
       <div class="cart-item-row">
         <div class="cart-item-left">
@@ -362,7 +384,7 @@ function renderDishCard(dish, showScore = false, score = null) {
     ? `<div style="padding:.5rem 1.25rem;border-top:1px solid var(--sand-dark);font-size:.8rem;color:var(--ocean-dark);font-weight:600;">⭐ ${displayRatingText}/5 (${dish.review_count} reviews)</div>`
     : '';
   const hasImg = dish.image_url && String(dish.image_url).trim().length > 0;
-  const imgUrl = hasImg ? String(dish.image_url).trim() : '';
+  const imgUrl = hasImg ? resolveImageUrl(String(dish.image_url).trim()) : '';
 
   const dishNameAttr = escAttr(dish.name);
   const dishImgAttr = encodeURIComponent(dish.image_url || '');

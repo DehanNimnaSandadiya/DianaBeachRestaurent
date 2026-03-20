@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 
 # ─── Local Food Images Serving (for DB) ────────────────────────────────
 FOOD_IMAGES_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "FoodImages"))
-LOCAL_IMAGE_BASE_URL = "http://127.0.0.1:5000/images/"
+LOCAL_IMAGE_BASE_URL = "/images/"
 _IMAGE_FILENAME_MAP: dict[str, str] | None = None
 _IMAGE_TOKEN_MAP: dict[str, set[str]] | None = None
 

@@ -2,7 +2,9 @@
    Diana Beach Restaurant — main.js
    Shared utilities, auth helpers, API calls
    ============================================================ */
-const API = 'http://127.0.0.1:5000/api';
+// When deployed together with the backend on the same domain, use relative API paths.
+// For local dev, open the site via `http://127.0.0.1:5000/` (not file://) so this works too.
+const API = '/api';
 
 // ─── Navbar ───────────────────────────────────────────────
 const navbar = document.querySelector('.navbar');

@@ -38,7 +38,7 @@ import os
 from datetime import datetime
 
 from bson import ObjectId
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory, abort
 from flask_cors import CORS
 from flask_jwt_extended import (JWTManager, jwt_required,
                                 get_jwt_identity)
@@ -84,6 +84,30 @@ def serve_food_images(filename: str):
     Frontend uses `/images/<filename>` URLs returned by the backend.
     """
     return send_from_directory(FOOD_IMAGES_DIR, filename)
+
+# ─── Static Frontend Hosting (for free deploy) ─────────────────────────────
+FRONTEND_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend"))
+REPO_ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+
+@app.route("/")
+def serve_index():
+    return send_from_directory(FRONTEND_DIR, "index.html")
+
+@app.route("/LandingImage.jpg")
+def serve_landing_image():
+    return send_from_directory(REPO_ROOT_DIR, "LandingImage.jpg")
+
+@app.route("/<path:path>")
+def serve_frontend_file(path: str):
+    # Never interfere with API and images routes.
+    if path.startswith("api/") or path.startswith("images/"):
+        abort(404)
+    full_path = os.path.join(FRONTEND_DIR, path)
+    if os.path.isfile(full_path):
+        return send_from_directory(FRONTEND_DIR, path)
+    # SPA-like fallback (admin/recommendations etc are real html files,
+    # but if a route is missing we still return homepage).
+    return send_from_directory(FRONTEND_DIR, "index.html")
 
 
 # ─── Utilities ────────────────────────────────────────────────────────────────
@@ -528,4 +552,6 @@ def server_error(e):
 
 
 if __name__ == '__main__':
-    app.run(debug=config.DEBUG, port=5000)
+    # Respect the hosting platform's PORT env var.
+    port = int(os.environ.get("PORT", "5000"))
+    app.run(host="0.0.0.0", debug=config.DEBUG, port=port)

@@ -25,6 +25,4 @@ Restaurant web app with:
 
 - Render + Vercel guide: `DEPLOY.md`
 - Render blueprint file: `render.yaml`
-- Vercel configs:
-  - repo root `vercel.json` (fallback rewrites to `frontend/` when Root Directory is empty)
-  - `frontend/vercel.json` (when Root Directory is `frontend`)
+- Vercel: leave **Root Directory empty** in project settings (recommended). Repo root `index.html` redirects into `frontend/`; `vercel.json` rewrites paths into `frontend/`.

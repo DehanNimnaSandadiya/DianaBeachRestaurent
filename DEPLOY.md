@@ -76,41 +76,41 @@ The backend already sends CORS headers for browser calls from your Vercel domain
 
 ## 3. Frontend on Vercel
 
-### Import project
+### Recommended setup (fixes most `404: NOT_FOUND`)
 
-1. Vercel → **Add New** → **Project** → import the same GitHub repo.
+Vercel works most reliably when it deploys the **whole Git repo** and uses the root `vercel.json` + root `index.html` entry.
 
-### Critical setting: Root Directory
+1. Vercel → **Add New** → **Project** → import **`DianaBeachRestaurentSys`** (same GitHub repo).
+2. **Settings → General**:
+   - **Framework Preset**: **Other**
+   - **Root Directory**: **leave empty** (delete `frontend` — leave the field blank)
+   - **Build Command**: **empty**
+   - **Output Directory**: **empty** (must not be `public`, `dist`, or `build`)
+   - **Install Command**: **empty**
+3. **Save** → **Deployments** → **Redeploy**.
 
-| Field | Value |
-|--------|--------|
-| **Root Directory** | `frontend` |
+What happens:
 
-Do **not** use `diana-v2/frontend` — the repo root already contains `frontend/`.
+- Visiting **`/`** loads repo-root **`index.html`**, which redirects the browser to **`/frontend/index.html`** so all relative links (`menu.html`, `css/...`) resolve correctly.
+- **`vercel.json`** (repo root) rewrites paths like **`/menu.html`** → **`/frontend/menu.html`** for old bookmarks.
 
-**If you see `404: NOT_FOUND` on Vercel:** the project is almost always pointed at the **wrong folder**.
+### If you insist on Root Directory = `frontend`
 
-1. Vercel → your project → **Settings** → **General** → **Root Directory** → set to **`frontend`** → Save → **Redeploy** (Deployments → … → Redeploy).
-2. **Or** leave Root Directory as **empty** (repo root): the repo now includes a root **`vercel.json`** that rewrites `/` and all paths into `/frontend/…` so the site still loads.
+You can set **Root Directory** to **`frontend`**, but then:
 
-When Root Directory is **`frontend`**, Vercel uses `frontend/vercel.json` only; the root `vercel.json` is ignored (that is correct).
+- The repo-root **`vercel.json` is ignored** (Vercel only reads `frontend/vercel.json`).
+- **Framework must be Other**, and **Build / Output / Install** must all be **empty**.
 
-### Framework
+### “No logs” on Vercel
 
-- **Framework Preset**: **Other** (static HTML/CSS/JS).
-- **Build Command**: leave **empty**.
-- **Output Directory**: leave **empty** or `.` (files are served from `frontend/` root).
-
-### Static assets
-
-- `frontend/public/LandingImage.jpg` is served as `/LandingImage.jpg` (hero background).
+Static sites have almost nothing under **Runtime** / **Functions** logs. Always open the deployment → **Building** (build log). If the build log is empty or the deploy fails instantly, you may be on the wrong project, wrong Git branch, or a domain that is not attached to this project.
 
 ### Point the UI at your API
 
 `frontend/js/main.js` picks the API URL automatically:
 
-- On **Vercel** (or any host that is not `localhost:5000`), it uses the Render URL **fallback** inside `main.js` (currently `https://dianabeachrestaurent-1.onrender.com`).  
-- **Change that fallback** to your real Render hostname if it differs, **or** inject before `main.js` on every page:
+- On **Vercel** (or any host that is not `localhost:5000`), it uses the Render URL **fallback** inside `main.js` (update this to your real Render URL after deploy).  
+- **Or** inject before `main.js` on every page:
 
   ```html
   <script>window.DIANA_API_BASE = 'https://YOUR-SERVICE.onrender.com';</script>
@@ -133,7 +133,7 @@ After you add a Vercel custom domain, you do **not** need to change Render for C
 - [ ] Render: `MONGO_URI`, `JWT_SECRET_KEY`, `FLASK_ENV=production`, admin vars set.
 - [ ] `/api/health` OK on Render.
 - [ ] `seed_data.py` run against that cluster (menu + reviews).
-- [ ] Vercel **Root Directory** = `frontend`.
+- [ ] Vercel **Root Directory** **empty** (recommended) **or** `frontend` with Other + empty build/output.
 - [ ] `main.js` fallback or `window.DIANA_API_BASE` matches your Render URL.
 - [ ] Open Vercel site → Menu / Recommendations load without console network errors to `/api/...`.
 
@@ -148,19 +148,19 @@ After you add a Vercel custom domain, you do **not** need to change Render for C
 | CORS errors | Confirm frontend uses the **https** Render URL; check browser Network tab for blocked preflight. |
 | Images missing | Dish images come from Render `/images/...`; `main.js` prefixes with the same API host. Ensure `FoodImages` exists on the server repo and deploy includes it. |
 | Wrong Python on Render | `backend/runtime.txt` should be inside the service root (set Render root to `backend`). |
-| Vercel `404: NOT_FOUND` | Set **Root Directory** to `frontend` and redeploy, or leave root empty and rely on repo-root `vercel.json` rewrites into `/frontend`. |
-| Vercel `404` right after “I set Root to `frontend`` | Open **Settings → General** and clear **Output Directory** (must be **empty** / default). If it is `public`, `dist`, or `build`, Vercel deploys **only that folder** — you will have **no** root `index.html` → **`/` returns 404**. Also set **Framework Preset** to **Other** and **Build Command** empty. |
+| Vercel `404: NOT_FOUND` | Prefer **Root Directory empty** + redeploy. Clear **Output Directory**. Read **Build** logs (not Runtime). |
+| Vercel `404` right after setting Root to `frontend` | **Framework Preset** must be **Other**; **Build / Output / Install** all **empty**. Or switch to **Root Directory empty** (recommended). |
 
 ### Vercel `404: NOT_FOUND` — quick fix (most common)
 
 1. **Project → Settings → General**
-2. **Root Directory**: `frontend` (when using the GitHub monorepo).
+2. **Root Directory**: **empty** (recommended) **or** `frontend` only if you keep Framework Other and empty commands.
 3. **Framework Preset**: **Other**
 4. **Build Command**: *empty*
-5. **Output Directory**: *empty* (not `public`, not `.next`, not `dist`)
+5. **Output Directory**: *empty* (not `public`, not `dist`, not `build`)
 6. **Install Command**: *empty*
 7. **Save** → **Deployments** → **⋯** on latest → **Redeploy**
 
-If Vercel still shows `404` for **`/`** and **`/index.html`**, open the latest deployment → **Building** log. If you see **`npm run build`** or **`Installing dependencies`** for a plain HTML site, your project is using a **Node** preset — set **Framework Preset** to **Other** and clear **Install Command** / **Build Command** / **Output Directory**, then redeploy.
+After deploy, open **`https://YOUR-PROJECT.vercel.app/`** (should redirect to `/frontend/index.html`) and **`https://YOUR-PROJECT.vercel.app/frontend/index.html`**.
 
-After deploy, open **`https://YOUR-PROJECT.vercel.app/index.html`** — if that loads but **`/`** does not, say so (we can add an explicit rewrite in `frontend/vercel.json`).
+If Vercel still shows `404` for **`/`** and **`/index.html`**, open the latest deployment → **Building** log. If you see **`npm run build`** or **`Installing dependencies`** for a plain HTML site, your project is using a **Node** preset — set **Framework Preset** to **Other** and clear **Install Command** / **Build Command** / **Output Directory**, then redeploy.

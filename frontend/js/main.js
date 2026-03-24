@@ -6,7 +6,7 @@
 // Override before this script: window.DIANA_API_BASE = 'https://your-service.onrender.com';
 (function () {
   if (typeof window === 'undefined') return;
-  const RENDER_FALLBACK = 'https://dianabeachrestaurent-1.onrender.com';
+  const RENDER_FALLBACK = 'https://dianabeachrestaurentsys.onrender.com';
 
   function normaliseApiBase(raw) {
     let b = String(raw).trim().replace(/\/$/, '');
@@ -30,6 +30,13 @@
     return;
   }
 
+  // Flask on Render serves the UI and API on the same origin (e.g. dianabeachrestaurentsys.onrender.com).
+  if (window.location.hostname.endsWith('.onrender.com')) {
+    window.__DIANA_API__ = `${window.location.origin}/api`;
+    window.__DIANA_API_ORIGIN__ = window.location.origin;
+    return;
+  }
+
   const origin = RENDER_FALLBACK.replace(/\/$/, '');
   window.__DIANA_API__ = `${origin}/api`;
   window.__DIANA_API_ORIGIN__ = origin;
@@ -37,7 +44,7 @@
 
 const API = (typeof window !== 'undefined' && window.__DIANA_API__)
   ? window.__DIANA_API__
-  : 'https://dianabeachrestaurent-1.onrender.com/api';
+  : 'https://dianabeachrestaurentsys.onrender.com/api';
 const API_ORIGIN = (typeof window !== 'undefined' && window.__DIANA_API_ORIGIN__) || '';
 
 function resolveImageUrl(url) {

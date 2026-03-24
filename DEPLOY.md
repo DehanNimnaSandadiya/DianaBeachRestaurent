@@ -161,6 +161,9 @@ After you add a Vercel custom domain, you do **not** need to change Render for C
 6. **Install Command**: *empty*
 7. **Save** → **Deployments** → **⋯** on latest → **Redeploy**
 
-After deploy, open **`https://YOUR-PROJECT.vercel.app/`** (should redirect to `/frontend/index.html`) and **`https://YOUR-PROJECT.vercel.app/frontend/index.html`**.
+After deploy, test in this order:
+
+1. **`https://YOUR-PROJECT.vercel.app/frontend/index.html`** — if this **404s**, the deployment is not publishing the repo (wrong Root Directory, wrong repo/branch, or Git not connected). Fix that first.
+2. **`https://YOUR-PROJECT.vercel.app/`** — should **302** to `/frontend/index.html` via `vercel.json` (or show the small root `index.html` redirect).
 
 If Vercel still shows `404` for **`/`** and **`/index.html`**, open the latest deployment → **Building** log. If you see **`npm run build`** or **`Installing dependencies`** for a plain HTML site, your project is using a **Node** preset — set **Framework Preset** to **Other** and clear **Install Command** / **Build Command** / **Output Directory**, then redeploy.

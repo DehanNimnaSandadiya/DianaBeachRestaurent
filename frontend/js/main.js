@@ -21,9 +21,10 @@
     return;
   }
 
-  const host = window.location.hostname;
   const port = window.location.port;
-  if ((host === 'localhost' || host === '127.0.0.1') && port === '5000') {
+  // If we're running the Flask app locally on port 5000, always call the local API.
+  // This includes LAN IPs like http://192.168.x.x:5000.
+  if (port === '5000') {
     window.__DIANA_API__ = '/api';
     window.__DIANA_API_ORIGIN__ = window.location.origin;
     return;

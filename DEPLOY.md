@@ -21,6 +21,7 @@ This app is split: **Flask API + static HTML** on [Render](https://render.com), 
 
 1. Render Dashboard → **New** → **Web Service**.
 2. Connect the GitHub repo that contains this project (`backend/` folder at repo root).
+3. Optional: If you use Blueprint deploy, Render can read `render.yaml` from repo root.
 
 ### Settings
 

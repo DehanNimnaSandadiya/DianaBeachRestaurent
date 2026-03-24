@@ -2,19 +2,42 @@
    Diana Beach Restaurant — main.js
    Shared utilities, auth helpers, API calls
    ============================================================ */
-// When deployed together with the backend on the same domain, use relative API paths.
-// For local dev, open the site via `http://127.0.0.1:5000/` (not file://) so this works too.
-const API = 'https://dianabeachrestaurent.onrender.com/api';
+// API base: Render backend in production, same-origin when Flask serves the site on :5000.
+// Override before this script: window.DIANA_API_BASE = 'https://your-service.onrender.com';
+(function () {
+  if (typeof window === 'undefined') return;
+  const RENDER_FALLBACK = 'https://dianabeachrestaurent.onrender.com';
 
-function apiOriginFromApiBase(apiBase) {
-  if (!apiBase || typeof apiBase !== 'string') return '';
-  // apiBase can be '/api' (local) or 'https://your-backend.com/api'
-  return apiBase.startsWith('http')
-    ? apiBase.replace(/\/api\/?$/, '')
-    : '';
-}
+  function normaliseApiBase(raw) {
+    let b = String(raw).trim().replace(/\/$/, '');
+    if (b.endsWith('/api')) b = b.slice(0, -4).replace(/\/$/, '');
+    return b;
+  }
 
-const API_ORIGIN = apiOriginFromApiBase(API);
+  if (window.DIANA_API_BASE) {
+    const origin = normaliseApiBase(window.DIANA_API_BASE);
+    window.__DIANA_API__ = `${origin}/api`;
+    window.__DIANA_API_ORIGIN__ = origin;
+    return;
+  }
+
+  const host = window.location.hostname;
+  const port = window.location.port;
+  if ((host === 'localhost' || host === '127.0.0.1') && port === '5000') {
+    window.__DIANA_API__ = '/api';
+    window.__DIANA_API_ORIGIN__ = window.location.origin;
+    return;
+  }
+
+  const origin = RENDER_FALLBACK.replace(/\/$/, '');
+  window.__DIANA_API__ = `${origin}/api`;
+  window.__DIANA_API_ORIGIN__ = origin;
+})();
+
+const API = (typeof window !== 'undefined' && window.__DIANA_API__)
+  ? window.__DIANA_API__
+  : 'https://dianabeachrestaurent.onrender.com/api';
+const API_ORIGIN = (typeof window !== 'undefined' && window.__DIANA_API_ORIGIN__) || '';
 
 function resolveImageUrl(url) {
   if (!url) return '';

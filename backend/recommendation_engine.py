@@ -112,7 +112,15 @@ def get_recommendations(nationality: str) -> Dict[str, Any]:
             'source': 'nationality'
         })
 
-    scored.sort(key=lambda x: x['score'], reverse=True)
+    # Keep highest-rated dishes on top; use algorithm score as tie-breaker.
+    scored.sort(
+        key=lambda x: (
+            x.get('dish', {}).get('avg_rating', 0),
+            x.get('score', 0),
+            x.get('review_count', 0)
+        ),
+        reverse=True
+    )
     top = scored[:TOP_N_RESULTS]
 
     return {
@@ -212,7 +220,15 @@ def _global_fallback() -> List[dict]:
         score, breakdown = _compute_score(reviews, global_mean)
         scored.append({'dish': _serialise_dish(dish, db), 'score': round(score, 2),
                        'review_count': len(reviews), 'breakdown': breakdown, 'source': 'global'})
-    scored.sort(key=lambda x: x['score'], reverse=True)
+    # Keep highest-rated dishes on top; use algorithm score as tie-breaker.
+    scored.sort(
+        key=lambda x: (
+            x.get('dish', {}).get('avg_rating', 0),
+            x.get('score', 0),
+            x.get('review_count', 0)
+        ),
+        reverse=True
+    )
     return scored[:TOP_N_RESULTS]
 
 

@@ -149,3 +149,16 @@ After you add a Vercel custom domain, you do **not** need to change Render for C
 | Images missing | Dish images come from Render `/images/...`; `main.js` prefixes with the same API host. Ensure `FoodImages` exists on the server repo and deploy includes it. |
 | Wrong Python on Render | `backend/runtime.txt` should be inside the service root (set Render root to `backend`). |
 | Vercel `404: NOT_FOUND` | Set **Root Directory** to `frontend` and redeploy, or leave root empty and rely on repo-root `vercel.json` rewrites into `/frontend`. |
+| Vercel `404` right after “I set Root to `frontend`` | Open **Settings → General** and clear **Output Directory** (must be **empty** / default). If it is `public`, `dist`, or `build`, Vercel deploys **only that folder** — you will have **no** root `index.html` → **`/` returns 404**. Also set **Framework Preset** to **Other** and **Build Command** empty. |
+
+### Vercel `404: NOT_FOUND` — quick fix (most common)
+
+1. **Project → Settings → General**
+2. **Root Directory**: `frontend` (when using the GitHub monorepo).
+3. **Framework Preset**: **Other**
+4. **Build Command**: *empty*
+5. **Output Directory**: *empty* (not `public`, not `.next`, not `dist`)
+6. **Install Command**: *empty* (optional; `frontend/package.json` exists only so Vercel treats this as a normal project)
+7. **Save** → **Deployments** → **⋯** on latest → **Redeploy**
+
+After deploy, open **`https://YOUR-PROJECT.vercel.app/index.html`** — if that loads but **`/`** does not, say so (we can add an explicit rewrite in `frontend/vercel.json`).

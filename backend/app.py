@@ -35,7 +35,13 @@ Stats & Admin:
 import logging
 import logging.handlers
 import os
+import sys
 from datetime import datetime
+
+# Resolve sibling modules when started as `gunicorn backend.app:app` (repo root cwd).
+_backend_dir = os.path.dirname(os.path.abspath(__file__))
+if _backend_dir not in sys.path:
+    sys.path.insert(0, _backend_dir)
 
 from bson import ObjectId
 from flask import Flask, jsonify, request, send_from_directory, abort, make_response

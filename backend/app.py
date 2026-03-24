@@ -146,14 +146,44 @@ def _to_oid(id_str: str):
         return None
 
 
-def _serialise_dish(dish: dict, db=None) -> dict:
+def _review_stats_map(db) -> dict:
+    """One aggregation for all dishes — avoids N+1 review queries on GET /api/dishes."""
+    pipeline = [
+        {'$group': {
+            '_id': '$dish_id',
+            'avg': {'$avg': '$rating'},
+            'count': {'$sum': 1},
+        }}
+    ]
+    out: dict[str, dict] = {}
+    for doc in db.reviews.aggregate(pipeline):
+        did = doc.get('_id')
+        if did is None:
+            continue
+        key = str(did)
+        raw_avg = doc.get('avg')
+        out[key] = {
+            'avg': round(float(raw_avg), 1) if raw_avg is not None else 0.0,
+            'count': int(doc.get('count', 0)),
+        }
+    return out
+
+
+def _serialise_dish(dish: dict, db=None, review_stats: dict | None = None) -> dict:
     """Convert a MongoDB dish document to a JSON-safe dict, including avg rating."""
     if db is None:
         db = get_db()
-    reviews = list(db.reviews.find({'dish_id': str(dish['_id'])}, {'_id': 0, 'rating': 1}))
-    avg = round(sum(r['rating'] for r in reviews) / len(reviews), 1) if reviews else 0
+    sid = str(dish['_id'])
+    if review_stats is not None:
+        s = review_stats.get(sid, {'avg': 0.0, 'count': 0})
+        avg = s['avg']
+        count = s['count']
+    else:
+        reviews = list(db.reviews.find({'dish_id': sid}, {'_id': 0, 'rating': 1}))
+        avg = round(sum(r['rating'] for r in reviews) / len(reviews), 1) if reviews else 0
+        count = len(reviews)
     return {
-        'id': str(dish['_id']),
+        'id': sid,
         'name': dish.get('name', ''),
         'description': dish.get('description', ''),
         'category': dish.get('category', ''),
@@ -163,7 +193,7 @@ def _serialise_dish(dish: dict, db=None) -> dict:
         'spice_level': dish.get('spice_level', 'Medium'),
         'is_top_seller': dish.get('is_top_seller', False),
         'avg_rating': avg,
-        'review_count': len(reviews)
+        'review_count': count,
     }
 
 
@@ -280,7 +310,8 @@ def get_dishes():
     if cat:
         query['category'] = cat
     dishes = list(db.dishes.find(query))
-    return jsonify([_serialise_dish(d, db) for d in dishes])
+    stats = _review_stats_map(db)
+    return jsonify([_serialise_dish(d, db, stats) for d in dishes])
 
 
 @app.route('/api/dishes/<dish_id>', methods=['GET'])

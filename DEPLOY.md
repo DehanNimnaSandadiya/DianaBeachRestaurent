@@ -87,6 +87,13 @@ The backend already sends CORS headers for browser calls from your Vercel domain
 
 Do **not** use `diana-v2/frontend` — the repo root already contains `frontend/`.
 
+**If you see `404: NOT_FOUND` on Vercel:** the project is almost always pointed at the **wrong folder**.
+
+1. Vercel → your project → **Settings** → **General** → **Root Directory** → set to **`frontend`** → Save → **Redeploy** (Deployments → … → Redeploy).
+2. **Or** leave Root Directory as **empty** (repo root): the repo now includes a root **`vercel.json`** that rewrites `/` and all paths into `/frontend/…` so the site still loads.
+
+When Root Directory is **`frontend`**, Vercel uses `frontend/vercel.json` only; the root `vercel.json` is ignored (that is correct).
+
 ### Framework
 
 - **Framework Preset**: **Other** (static HTML/CSS/JS).
@@ -101,7 +108,7 @@ Do **not** use `diana-v2/frontend` — the repo root already contains `frontend/
 
 `frontend/js/main.js` picks the API URL automatically:
 
-- On **Vercel** (or any host that is not `localhost:5000`), it uses the Render URL **fallback** inside `main.js` (`dianabeachrestaurent.onrender.com`).  
+- On **Vercel** (or any host that is not `localhost:5000`), it uses the Render URL **fallback** inside `main.js` (currently `https://dianabeachrestaurent-1.onrender.com`).  
 - **Change that fallback** to your real Render hostname if it differs, **or** inject before `main.js` on every page:
 
   ```html
@@ -140,3 +147,4 @@ After you add a Vercel custom domain, you do **not** need to change Render for C
 | CORS errors | Confirm frontend uses the **https** Render URL; check browser Network tab for blocked preflight. |
 | Images missing | Dish images come from Render `/images/...`; `main.js` prefixes with the same API host. Ensure `FoodImages` exists on the server repo and deploy includes it. |
 | Wrong Python on Render | `backend/runtime.txt` should be inside the service root (set Render root to `backend`). |
+| Vercel `404: NOT_FOUND` | Set **Root Directory** to `frontend` and redeploy, or leave root empty and rely on repo-root `vercel.json` rewrites into `/frontend`. |

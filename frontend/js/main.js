@@ -6,7 +6,7 @@
 // Override before this script: window.DIANA_API_BASE = 'https://your-service.onrender.com';
 (function () {
   if (typeof window === 'undefined') return;
-  const RENDER_FALLBACK = 'https://dianabeachrestaurent.onrender.com';
+  const RENDER_FALLBACK = 'https://dianabeachrestaurent-1.onrender.com';
 
   function normaliseApiBase(raw) {
     let b = String(raw).trim().replace(/\/$/, '');
@@ -36,7 +36,7 @@
 
 const API = (typeof window !== 'undefined' && window.__DIANA_API__)
   ? window.__DIANA_API__
-  : 'https://dianabeachrestaurent.onrender.com/api';
+  : 'https://dianabeachrestaurent-1.onrender.com/api';
 const API_ORIGIN = (typeof window !== 'undefined' && window.__DIANA_API_ORIGIN__) || '';
 
 function resolveImageUrl(url) {

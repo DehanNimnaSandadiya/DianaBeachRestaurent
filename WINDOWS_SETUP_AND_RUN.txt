@@ -1,0 +1,144 @@
+Windows Setup & Run Guide (Render backend + MongoDB, local app)
+===================================================================
+
+This project includes:
+  - Flask backend API + static frontend (served by Flask on port 5000)
+  - MongoDB Atlas database for dishes/reviews/auth
+  - Local images in `FoodImages/` served as `/images/<filename>`
+
+This guide is written for PowerShell.
+
+----------------------------
+1) Prerequisites on the new PC
+----------------------------
+
+1. Install Python 3.12.x (recommended).
+   - Make sure `python` works in Command Prompt / PowerShell.
+
+2. Internet access:
+   - The backend must reach MongoDB Atlas (outbound network must be allowed).
+
+----------------------------
+2) MongoDB Atlas + environment file
+----------------------------
+
+You MUST set your MongoDB connection string in `backend/.env`.
+
+1. Open folder:
+     C:\path\to\diana_v2\backend
+
+2. Copy the env template:
+   PowerShell:
+     Copy-Item .env.example .env -Force
+
+3. Edit `backend/.env` and set:
+   - `MONGO_URI`  (your MongoDB Atlas SRV connection string)
+   - `DB_NAME`    (should match the DB name inside your URI, typically `diana_beach`)
+   - `JWT_SECRET_KEY` (any long random string)
+   - `ADMIN_EMAIL` and `ADMIN_PASSWORD` (used by seed script)
+
+NOTE:
+  - Do NOT commit or share real passwords inside git.
+  - For zipping: it is OK to keep `.env` locally, but if you want to share the zip publicly,
+    delete `.env` before sharing and rely on `.env.example` placeholders.
+
+----------------------------
+3) Setup Python dependencies (backend)
+----------------------------
+
+Run these from the repo root:
+  C:\path\to\diana_v2
+
+Commands (PowerShell):
+
+  cd backend
+  python -m venv venv
+  .\venv\Scripts\Activate.ps1
+  pip install -r requirements.txt
+
+If you see an execution policy error when activating the venv:
+  Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
+----------------------------
+4) (Optional but recommended) Seed the database
+----------------------------
+
+If your database is empty or you want to reset menu/reviews to the latest code,
+run the seeder.
+
+WARNING:
+  - `seed_data.py` clears `dishes` and `reviews` collections and recreates them.
+
+Run:
+
+  python seed_data.py
+
+After seeding:
+  - Admin user will be created if it doesn't exist.
+
+----------------------------
+5) Start the application
+----------------------------
+
+Run:
+
+  python app.py
+
+Expected output:
+  - Flask runs at:
+      http://127.0.0.1:5000
+      http://<LAN-IP>:5000
+
+----------------------------
+6) Open the site
+----------------------------
+
+In your browser:
+  - http://127.0.0.1:5000/
+  - http://127.0.0.1:5000/menu.html
+  - http://127.0.0.1:5000/recommendations.html
+  - http://127.0.0.1:5000/reviews.html
+  - http://127.0.0.1:5000/admin/dashboard.html (login required)
+
+Important:
+  - Do NOT open using `file://`.
+  - Use the HTTP URL above.
+
+----------------------------
+7) Quick API verification (debug)
+----------------------------
+
+You can test endpoints from PowerShell:
+
+  Invoke-RestMethod -Method Get -Uri http://127.0.0.1:5000/api/health
+  Invoke-RestMethod -Method Get -Uri http://127.0.0.1:5000/api/dishes
+
+For a nationality recommendation:
+
+  Invoke-RestMethod -Method Get -Uri "http://127.0.0.1:5000/api/recommendations?nationality=Sri%20Lankan"
+
+If `/api/health` fails:
+  - re-check `backend/.env` (MONGO_URI / DB_NAME / JWT_SECRET_KEY)
+
+----------------------------
+8) Common problems
+----------------------------
+
+1) "backend not running" shown on the frontend
+   - Ensure `python app.py` is running.
+   - Verify by opening:
+       http://127.0.0.1:5000/api/health
+
+2) CORS errors while running locally
+   - Make sure you are opening the site via HTTP:
+       http://127.0.0.1:5000
+   - Not a different host/port.
+
+3) MongoDB connection errors
+   - MongoDB Atlas network rules may block your new PC IP.
+   - Atlas firewall must allow Render/local outbound IPs.
+
+----------------------------
+End
+----------------------------
+

@@ -135,7 +135,7 @@ function escAttr(s) {
   return String(s ?? '').replace(/"/g, '&quot;');
 }
 
-function CartAddFromBtn(btn) {
+async function CartAddFromBtn(btn) {
   const dishId = btn.dataset.dishId;
   const name = btn.dataset.dishName || '';
   const price = Number(btn.dataset.dishPrice || 0);
@@ -148,6 +148,7 @@ function CartAddFromBtn(btn) {
   } else {
     items.push({ dishId, name, price, imageUrl, qty: 1 });
   }
+
   CartSave(items);
   updateCartBadge();
   openCartModal();
@@ -181,6 +182,7 @@ function ensureCartModal() {
       <div style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
         <div style="font-weight:700;color:var(--text-dark);">Total: <span id="cart-total-price">LKR 0</span></div>
         <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <button type="button" id="cart-order-btn" class="btn btn-ocean">Place Order</button>
           <button type="button" id="cart-clear-btn" class="btn btn-outline">Clear</button>
         </div>
       </div>
@@ -198,6 +200,7 @@ function ensureCartModal() {
     renderCartItems();
     updateCartBadge();
   });
+  overlay.querySelector('#cart-order-btn').addEventListener('click', submitCartOrder);
 
   overlay.querySelector('#cart-items').addEventListener('click', (e) => {
     const btn = e.target.closest('button');
@@ -279,6 +282,40 @@ function closeCartModal() {
   const overlay = document.getElementById('cart-modal-overlay');
   if (!overlay) return;
   overlay.classList.remove('open');
+}
+
+async function submitCartOrder() {
+  const items = CartLoad();
+  if (!items.length) {
+    showToast('Cart is empty', 'error');
+    return;
+  }
+  const payload = {
+    items: items.map(it => ({
+      dish_id: it.dishId,
+      qty: it.qty || 1
+    }))
+  };
+  const btn = document.getElementById('cart-order-btn');
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = 'Placing…';
+  }
+  try {
+    await apiPost('/orders', payload);
+    CartSave([]);
+    renderCartItems();
+    updateCartBadge();
+    showToast('Order placed successfully!', 'success');
+    closeCartModal();
+  } catch (e) {
+    showToast(e.message || 'Failed to place order', 'error');
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = 'Place Order';
+    }
+  }
 }
 
 function ensureCartButton() {

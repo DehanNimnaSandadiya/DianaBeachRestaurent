@@ -113,7 +113,7 @@ def options_api(path: str):
 
 # ─── Static Frontend Hosting (for free deploy) ─────────────────────────────
 FRONTEND_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "frontend"))
-REPO_ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+REPO_ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 @app.route("/")
 def serve_index():
@@ -213,6 +213,41 @@ def _serialise_review(r: dict, db=None) -> dict:
         'comment': r.get('comment', ''),
         'reviewer_name': r.get('reviewer_name', ''),
         'created_at': created.strftime('%Y-%m-%d %H:%M') if hasattr(created, 'strftime') else str(created)
+    }
+
+
+def _serialise_cart_item(item: dict, db=None) -> dict:
+    """Convert cart queue item to JSON-safe dict with dish name fallback."""
+    if db is None:
+        db = get_db()
+    dish_name = item.get('dish_name', '').strip()
+    dish_id = item.get('dish_id', '')
+    if not dish_name and dish_id:
+        dish = db.dishes.find_one({'_id': _to_oid(dish_id)})
+        dish_name = dish.get('name', 'Unknown dish') if dish else 'Unknown dish'
+    created = item.get('created_at', datetime.utcnow())
+    return {
+        'id': str(item['_id']),
+        'dish_id': dish_id,
+        'dish_name': dish_name,
+        'qty': int(item.get('qty', 1)),
+        'status': item.get('status', 'pending'),
+        'created_at': created.strftime('%Y-%m-%d %H:%M') if hasattr(created, 'strftime') else str(created),
+    }
+
+
+def _serialise_order(order: dict) -> dict:
+    """Convert order document to JSON-safe dict."""
+    created = order.get('created_at', datetime.utcnow())
+    completed = order.get('completed_at')
+    return {
+        'id': str(order['_id']),
+        'status': order.get('status', 'pending'),
+        'items': order.get('items', []),
+        'total_qty': int(order.get('total_qty', 0)),
+        'total_amount': float(order.get('total_amount', 0)),
+        'created_at': created.strftime('%Y-%m-%d %H:%M') if hasattr(created, 'strftime') else str(created),
+        'completed_at': completed.strftime('%Y-%m-%d %H:%M') if hasattr(completed, 'strftime') else (str(completed) if completed else ''),
     }
 
 
@@ -477,6 +512,151 @@ def delete_review(review_id):
     return jsonify({'message': 'Review deleted.'})
 
 
+# ─── Cart / Service Queue Routes ─────────────────────────────────────────────
+
+@app.route('/api/orders', methods=['POST'])
+def create_order():
+    """Create an order from cart items (guest/user action)."""
+    data = request.get_json(silent=True) or {}
+    items = data.get('items')
+    if not isinstance(items, list) or not items:
+        return jsonify({'error': 'items must be a non-empty array.'}), 400
+
+    db = get_db()
+    normalised_items = []
+    total_qty = 0
+    total_amount = 0.0
+
+    for raw in items:
+        dish_id = str((raw or {}).get('dish_id', '')).strip()
+        if not dish_id:
+            continue
+        dish = db.dishes.find_one({'_id': _to_oid(dish_id)})
+        if not dish:
+            continue
+        try:
+            qty = int((raw or {}).get('qty', 1))
+        except (TypeError, ValueError):
+            qty = 1
+        qty = max(1, qty)
+        unit_price = float(dish.get('price', 0) or 0)
+        line_total = unit_price * qty
+        total_qty += qty
+        total_amount += line_total
+        normalised_items.append({
+            'dish_id': str(dish['_id']),
+            'dish_name': dish.get('name', ''),
+            'qty': qty,
+            'unit_price': unit_price,
+            'line_total': line_total,
+        })
+
+    if not normalised_items:
+        return jsonify({'error': 'No valid dish items in order.'}), 400
+
+    doc = {
+        'items': normalised_items,
+        'status': 'pending',
+        'total_qty': total_qty,
+        'total_amount': round(total_amount, 2),
+        'created_at': datetime.utcnow(),
+    }
+    result = db.orders.insert_one(doc)
+    doc['_id'] = result.inserted_id
+    return jsonify({'message': 'Order placed successfully.', 'order': _serialise_order(doc)}), 201
+
+
+@app.route('/api/admin/orders', methods=['GET'])
+@jwt_required()
+def get_admin_orders():
+    """Return orders for admin dashboard."""
+    if not is_admin():
+        return jsonify({'error': 'Admin access required.'}), 403
+    db = get_db()
+    status = request.args.get('status', 'pending').strip().lower()
+    query = {'status': status} if status else {}
+    orders = list(db.orders.find(query).sort('created_at', -1).limit(300))
+    return jsonify([_serialise_order(o) for o in orders])
+
+
+@app.route('/api/admin/orders/<order_id>/complete', methods=['POST'])
+@jwt_required()
+def complete_order(order_id):
+    """Mark order as completed (admin action)."""
+    if not is_admin():
+        return jsonify({'error': 'Admin access required.'}), 403
+    db = get_db()
+    oid = _to_oid(order_id)
+    if not oid:
+        return jsonify({'error': 'Invalid order id.'}), 400
+    order = db.orders.find_one({'_id': oid})
+    if not order:
+        return jsonify({'error': 'Order not found.'}), 404
+    if order.get('status') == 'completed':
+        return jsonify({'message': 'Order already completed.'})
+    db.orders.update_one({'_id': oid}, {'$set': {'status': 'completed', 'completed_at': datetime.utcnow()}})
+    return jsonify({'message': 'Order marked as completed.'})
+
+@app.route('/api/cart/items', methods=['POST'])
+def add_cart_item():
+    """Add a dish to the live service queue when user clicks 'Add to Cart'."""
+    data = request.get_json(silent=True) or {}
+    err = _validate_fields(data, ['dish_id'])
+    if err:
+        return jsonify({'error': err}), 400
+    qty_raw = data.get('qty', 1)
+    try:
+        qty = int(qty_raw)
+        if qty < 1:
+            raise ValueError()
+    except (TypeError, ValueError):
+        return jsonify({'error': 'qty must be a positive integer.'}), 400
+    db = get_db()
+    dish = db.dishes.find_one({'_id': _to_oid(data['dish_id'])})
+    if not dish:
+        return jsonify({'error': 'Dish not found.'}), 404
+    doc = {
+        'dish_id': str(dish['_id']),
+        'dish_name': data.get('dish_name') or dish.get('name', ''),
+        'qty': qty,
+        'status': 'pending',
+        'created_at': datetime.utcnow(),
+    }
+    result = db.cart_items.insert_one(doc)
+    doc['_id'] = result.inserted_id
+    return jsonify({'message': 'Added to service queue.', 'item': _serialise_cart_item(doc, db)}), 201
+
+
+@app.route('/api/admin/cart/items', methods=['GET'])
+@jwt_required()
+def get_admin_cart_items():
+    """Return pending service queue items for admin dashboard."""
+    if not is_admin():
+        return jsonify({'error': 'Admin access required.'}), 403
+    db = get_db()
+    status = request.args.get('status', 'pending').strip().lower()
+    query = {'status': status} if status else {}
+    items = list(db.cart_items.find(query).sort('created_at', -1).limit(200))
+    return jsonify([_serialise_cart_item(i, db) for i in items])
+
+
+@app.route('/api/admin/cart/items/<item_id>/serve', methods=['POST'])
+@jwt_required()
+def mark_cart_item_served(item_id):
+    """Mark one queue item as served (admin action)."""
+    if not is_admin():
+        return jsonify({'error': 'Admin access required.'}), 403
+    db = get_db()
+    oid = _to_oid(item_id)
+    if not oid:
+        return jsonify({'error': 'Invalid queue item id.'}), 400
+    item = db.cart_items.find_one({'_id': oid})
+    if not item:
+        return jsonify({'error': 'Queue item not found.'}), 404
+    db.cart_items.update_one({'_id': oid}, {'$set': {'status': 'served', 'served_at': datetime.utcnow()}})
+    return jsonify({'message': 'Queue item marked as served.'})
+
+
 # ─── Recommendation Route ─────────────────────────────────────────────────────
 
 @app.route('/api/recommendations', methods=['GET'])
@@ -553,12 +733,34 @@ def admin_stats():
     cat_data = [{'category': r['_id'], 'count': r['count']}
                 for r in db.dishes.aggregate(cat_pipeline)]
 
+    # Orders + last-30-day evaluation context for analytics
+    pending_orders = list(db.orders.find({'status': 'pending'}, {'_id': 0, 'total_qty': 1}))
+    completed_orders = list(db.orders.find({'status': 'completed'}, {'_id': 0, 'total_qty': 1}))
+    pending_order_count = len(pending_orders)
+    completed_order_count = len(completed_orders)
+    pending_total_qty = sum(int(i.get('total_qty', 0)) for i in pending_orders)
+    completed_total_qty = sum(int(i.get('total_qty', 0)) for i in completed_orders)
+
+    from datetime import timedelta
+    thirty_days_ago = now - timedelta(days=30)
+    dishes_eval_30d = len(db.reviews.distinct('dish_id', {'created_at': {'$gte': thirty_days_ago}}))
+
     return jsonify({
         'summary': {
             'total_dishes': db.dishes.count_documents({}),
             'total_reviews': db.reviews.count_documents({}),
             'total_users': db.users.count_documents({}),
             'nationalities_served': len(db.reviews.distinct('nationality'))
+        },
+        'orders': {
+            'pending_orders': pending_order_count,
+            'completed_orders': completed_order_count,
+            'pending_total_qty': pending_total_qty,
+            'completed_total_qty': completed_total_qty,
+        },
+        'analysis_window': {
+            'days': 30,
+            'dishes_evaluated': dishes_eval_30d
         },
         'top_dishes': dish_stats[:8],
         'reviews_by_nationality': nat_data,

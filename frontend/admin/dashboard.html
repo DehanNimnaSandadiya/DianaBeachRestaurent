@@ -19,6 +19,7 @@
       <div class="admin-nav-item active" data-panel="overview"><span class="icon">📊</span> Overview</div>
       <div class="admin-nav-item" data-panel="dishes"><span class="icon">🍽️</span> Manage Dishes</div>
       <div class="admin-nav-item" data-panel="reviews"><span class="icon">💬</span> Reviews</div>
+      <div class="admin-nav-item" data-panel="orders"><span class="icon">🧾</span> Orders</div>
       <div class="admin-nav-item" data-panel="analytics"><span class="icon">📈</span> Analytics</div>
     </nav>
     <div style="position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;">
@@ -83,16 +84,39 @@
       </div>
     </div>
 
+    <!-- Orders Panel -->
+    <div class="admin-panel" id="panel-orders">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+        <h2 style="font-size:1.4rem;">Customer Orders</h2>
+        <button class="btn btn-ocean btn-sm" onclick="loadOrdersTable()">Refresh</button>
+      </div>
+      <div style="background:white;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);">
+        <table class="admin-table" id="orders-table">
+          <thead><tr><th>Created</th><th>Items</th><th>Total Qty</th><th>Total (LKR)</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody id="orders-tbody"><tr><td colspan="6" style="text-align:center;padding:2rem;">Loading…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- Analytics Panel -->
     <div class="admin-panel" id="panel-analytics">
       <h2 style="font-size:1.4rem;margin-bottom:1.5rem;">Recommendation Engine Analytics</h2>
+      <p style="margin:-.75rem 0 1rem;color:var(--text-mid);font-size:.9rem;">
+        ℹ️ Analytics uses the last 30 days of review data for evaluation context.
+      </p>
       <div style="background:white;border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow-sm);margin-bottom:1.5rem;">
         <h3 style="font-size:1.1rem;margin-bottom:1rem;">Test Nationality Recommendations</h3>
         <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
           <input class="form-control" type="text" id="test-nat" placeholder="Enter nationality…" style="max-width:260px;"/>
           <button class="btn btn-ocean btn-sm" onclick="testRecommendation()">Run →</button>
         </div>
+        <p id="analysis-window-note" style="margin-top:.9rem;color:var(--text-mid);font-size:.86rem;"></p>
         <div id="test-result" style="margin-top:1.5rem;"></div>
+      </div>
+      <div style="background:white;border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow-sm);margin-bottom:1.5rem;">
+        <h3 style="font-size:1.1rem;margin-bottom:.3rem;">Order Summary (Real-time)</h3>
+        <p style="margin-bottom:1rem;color:var(--text-mid);font-size:.86rem;">Order counts update when admin completes orders from the <strong>Orders</strong> tab.</p>
+        <div id="queue-summary" style="margin-bottom:.9rem;color:var(--text-mid);font-size:.9rem;"></div>
       </div>
       <div style="background:white;border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow-sm);">
         <h3 style="font-size:1.1rem;margin-bottom:1rem;">Nationality Coverage</h3>
@@ -155,6 +179,7 @@ document.querySelectorAll('.admin-nav-item').forEach(item=>{
     document.getElementById('panel-title').textContent=item.textContent.trim();
     if(activePanel==='dishes')loadDishesTable();
     if(activePanel==='reviews')loadReviewsTable();
+    if(activePanel==='orders')loadOrdersTable();
     if(activePanel==='analytics')loadAnalytics();
   });
 });
@@ -253,7 +278,55 @@ async function loadAnalytics(){
     const nats=await apiGet('/nationalities');
     const cov=document.getElementById('nat-coverage');
     cov.innerHTML=nats.map(n=>`<span style="display:inline-block;background:rgba(26,107,124,.08);border:1px solid rgba(26,107,124,.15);border-radius:30px;padding:.3rem .9rem;margin:.25rem;font-size:.85rem;color:var(--ocean-dark);">🌍 ${n}</span>`).join('');
+    await loadOrderSummary();
   }catch{}
+}
+
+async function loadOrderSummary(){
+  const summary=document.getElementById('queue-summary');
+  if(!summary)return;
+  try{
+    const stats=await apiGet('/admin/stats');
+    const q=stats.orders||{pending_orders:0,completed_orders:0,pending_total_qty:0,completed_total_qty:0};
+    const w=stats.analysis_window||{days:30,dishes_evaluated:0};
+    summary.innerHTML=`Pending orders: <strong>${q.pending_orders}</strong> (${q.pending_total_qty} portions) | Completed orders: <strong>${q.completed_orders}</strong> (${q.completed_total_qty} portions)`;
+    const note=document.getElementById('analysis-window-note');
+    if(note) note.innerHTML=`Uses last <strong>${w.days}</strong> days data | Dishes evaluated: <strong>${w.dishes_evaluated}</strong>`;
+  }catch(e){
+    summary.innerHTML=`<span style="color:var(--coral);">Order summary failed: ${e.message}</span>`;
+  }
+}
+
+async function loadOrdersTable(){
+  const tbody=document.getElementById('orders-tbody');
+  tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:2rem;">Loading…</td></tr>';
+  try{
+    const orders=await apiGet('/admin/orders?status=pending');
+    if(!orders.length){
+      tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:2rem;">No pending orders.</td></tr>';
+      return;
+    }
+    tbody.innerHTML=orders.map(o=>`<tr>
+      <td>${o.created_at}</td>
+      <td style="max-width:320px;">${o.items.map(i=>`${i.dish_name} x${i.qty}`).join('<br>')}</td>
+      <td>${o.total_qty}</td>
+      <td>${Number(o.total_amount).toLocaleString()}</td>
+      <td><span class="badge badge-gold">${o.status}</span></td>
+      <td><button class="btn btn-ocean btn-sm" onclick="completeOrder('${o.id}')">Complete</button></td>
+    </tr>`).join('');
+  }catch(e){
+    tbody.innerHTML=`<tr><td colspan="6" style="text-align:center;">Error: ${e.message}</td></tr>`;
+  }
+}
+
+async function completeOrder(id){
+  try{
+    await apiPost(`/admin/orders/${id}/complete`,{});
+    showToast('Order completed.','success');
+    await Promise.all([loadOrdersTable(), loadOrderSummary()]);
+  }catch(e){
+    showToast(e.message,'error');
+  }
 }
 
 async function testRecommendation(){
@@ -320,5 +393,6 @@ function escHtml(s){return s?s.replace(/'/g,"&#39;").replace(/"/g,"&quot;"):''}
 
 // Init
 loadOverview();loadNatOptions();
+setInterval(()=>{ if(activePanel==='analytics') loadOrderSummary(); if(activePanel==='orders') loadOrdersTable(); }, 10000);
 </script>
 </body></html>
